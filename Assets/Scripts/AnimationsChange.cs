@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
-        if (Input.GetButtonDown("Jump") && characterController.isGrounded) // Check if on the ground
+        if (Input.GetButtonDown("Jump") && !characterController.isGrounded) // Check if on the ground
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // Calculate jump velocity
             isJumping = true; // Set jumping state
