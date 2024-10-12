@@ -4,7 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     private Animator animator;
     private CharacterController characterController; // Reference to the CharacterController
-    public float jumpHeight = 2.0f; // Height of the jump
+    private float jumpHeight = 2f; // Height of the jump
     private float gravity = -9.81f; // Gravity value
     private Vector3 velocity; // Velocity for jumping
 

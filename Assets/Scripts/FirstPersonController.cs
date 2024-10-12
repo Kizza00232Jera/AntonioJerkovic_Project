@@ -4,11 +4,11 @@ using UnityEngine;
 public class FirstPersonController : MonoBehaviour
 {
     public float moveSpeed = 5f;         // Speed of player movement
-    public float lookSensitivity = 2f;   // Sensitivity of mouse look
-    public float gravity = -9.81f;       // Gravity force
-    public float jumpHeight = 4.5f;        // Height of player jump
-    public float maxLookX = 60f;         // Max rotation upwards
-    public float minLookX = -60f;        // Max rotation downwards
+    private float lookSensitivity = 2f;   // Sensitivity of mouse look
+    private float gravity = -9.81f;       // Gravity force
+    public float jumpHeight = 2f;        // Height of player jump
+    private float maxLookX = 60f;         // Max rotation upwards
+    private float minLookX = -60f;        // Max rotation downwards
 
     private float rotX;                  // Current X rotation (up/down)
     private Vector3 velocity;            // Player's current velocity
