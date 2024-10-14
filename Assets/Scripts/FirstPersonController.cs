@@ -12,7 +12,7 @@ public class FirstPersonController : MonoBehaviour
 
     private float rotX;                  // Current X rotation (up/down)
     private Vector3 velocity;            // Player's current velocity
-    private bool isGrounded;             // Check if the player is on the ground
+    public bool isGrounded;             // Check if the player is on the ground
 
     private CharacterController characterController; // Reference to CharacterController
     private Camera playerCamera;         // Reference to the camera
@@ -36,10 +36,41 @@ public class FirstPersonController : MonoBehaviour
     }
 
     // Handle player movement (WASD keys) and jumping
+    //void Move()
+    //{
+    //    // Check if the player is grounded (touching the ground)
+    //    isGrounded = characterController.isGrounded;
+
+    //    if (isGrounded && velocity.y < 0)
+    //    {
+    //        velocity.y = -2f; // Small downward force to keep grounded
+    //    }
+
+    //    // Get input for movement on the X and Z axes
+    //    float moveX = Input.GetAxis("Horizontal");  // A/D or left/right
+    //    float moveZ = Input.GetAxis("Vertical");    // W/S or forward/backward
+
+    //    // Move the player relative to their local direction (transform)
+    //    Vector3 moveDirection = transform.right * moveX + transform.forward * moveZ;
+    //    characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
+
+    //    // Handle jumping
+    //    if (Input.GetButtonDown("Jump") && isGrounded)
+    //    {
+    //        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // Calculate jump velocity
+    //    }
+
+    //    // Apply gravity to the player
+    //    velocity.y += gravity * Time.deltaTime;
+
+    //    // Move the player based on gravity
+    //    characterController.Move(velocity * Time.deltaTime);
+    //}
+
     void Move()
     {
-        // Check if the player is grounded (touching the ground)
-        isGrounded = characterController.isGrounded;
+        // Improved ground check using Raycast
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, characterController.height / 2 + 0.1f);
 
         if (isGrounded && velocity.y < 0)
         {
@@ -67,6 +98,7 @@ public class FirstPersonController : MonoBehaviour
         characterController.Move(velocity * Time.deltaTime);
     }
 
+
     // Handle camera and player rotation (using mouse)
     void CameraLook()
     {
@@ -84,4 +116,6 @@ public class FirstPersonController : MonoBehaviour
         // Apply the rotation to the player's camera (only affects the camera's X rotation)
         playerCamera.transform.localRotation = Quaternion.Euler(rotX, 0f, 0f);
     }
+
+
 }
