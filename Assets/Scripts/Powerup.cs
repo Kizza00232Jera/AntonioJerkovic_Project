@@ -4,27 +4,23 @@ public class Powerup : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the object that collided is the player
+        //if "player" picks up collides with powerup, it will trigger this script
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Powerup collected by player."); // Debug statement
-
-            // Call the method to activate the power-up
+            //it will run activatepowerup and it will remove the powerup
             ActivatePowerup();
-            // Destroy the power-up object
             Destroy(gameObject);
         }
     }
 
     void ActivatePowerup()
     {
+        //when picking up powerup, look for tag Enemy, and change its isRunningAway boolean to Yes.
         Enemy enemy = FindObjectOfType<Enemy>();
         if (enemy != null)
         {
-            enemy.isRunningAway = true;  // Ensure you have this line
+            enemy.isRunningAway = true; 
         }
 
-        // Optionally destroy the power-up
-        Destroy(gameObject);
     }
 }
