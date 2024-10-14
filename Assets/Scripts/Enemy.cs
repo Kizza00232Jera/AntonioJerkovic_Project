@@ -4,20 +4,16 @@ public class Enemy : MonoBehaviour
 {
     public float speed = 3f;                //make enemy slower than player probably
     private Transform player;                 // Transform stores a GameObject’s Position, Rotation, Scale
-    private float runningDistance = 111.5f;    // Distance at which the enemy stops running away
-    private float followingDistance = 2f;    // Distance at which the enemy stops running away
-    public bool isRunningAway = false;        // State to check if the enemy is running away
-    private CharacterController characterController; // Reference to CharacterController
+    public bool isRunningAway = false;        // Enemy state, it can run towards you or from u
+    private CharacterController characterController; 
 
-    //Question!!!
-    //Right now enemy doesnt fall if its out of map. add it later, if needed(cus ill restrict the map), or if its more properly to have it anyway
     private Vector3 velocity;
-    //public float gravity = -9.81f;           // Gravity value
 
+    private float directionChangeTimer; // making enemy change direction every 2sec if its far from player
+    private float currentRotationAngle; // To keep track of the current rotation angle
 
-    private float directionChangeTimer; // Timer to keep track of direction changes
-    public float directionChangeInterval = 1f; // Time interval for changing direction
-    private float currentRotationAngle = 0f; // To keep track of the current rotation angle
+    public float rotationSpeed = 10f; //how fast enemy can rotate
+
 
 
     void Start()
@@ -43,83 +39,69 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    //   public void RunAwayFromPlayer()
-    //{
-    //    // Get the direction away from the player
-    //    // -player.position will make end vector point away from the player,
-    //    // therefore once it runs in that direction, it will be direction away from the player
-    //    Vector3 direction = (transform.position - player.position).normalized;
-
-    //    // Use CharacterController to move the enemy away
-    //    //This will maybe move enemy faster depending on the players position!!! Maybe i need to delete *speed*, test later
-    //    //get the Transofm of enemy, and move it based on direction (that changes based on player position)
-    //    characterController.Move(direction * speed * Time.deltaTime);
-
-    //    // Optional: Add randomness in the direction every few seconds
-    //    if (Random.Range(0, 100) < 2) // Randomly change direction every few frames
-    //    {
-    //        float randomAngle = Random.Range(0f, 360f);
-    //        Quaternion rotation = Quaternion.Euler(0f, randomAngle, 0f);
-    //        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2f);
-    //    }
-    //}
-
-
 
     public void RunAwayFromPlayer()
     {
         // Calculate the distance between the enemy and the player
+        // This is added because enemy would just run in same direction, from the player.
+        // I want to add some randomness, so when enemy is far enough, it will not just keep going straight
+        // it will be done by calculating distance between enemy and player, and applying randomness if enemy is far from player
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
         Vector3 direction;
 
         if (distanceToPlayer < 15f)
         {
-            // Get the direction away from the player
-            direction = (transform.position - player.position).normalized; // Move away from the player
+            // Make the direction be in opposite way of player
+            // -player.position will make end vector point away from the player,
+            // therefore once it runs in that direction, it will be direction away from the player
+            direction = (transform.position - player.position).normalized;
         }
         else
         {
             // Increment the timer
             directionChangeTimer += Time.deltaTime;
-
-            // Check if it's time to change direction
-            if (directionChangeTimer >= directionChangeInterval)
+            // timer will trigger his random movement
+            if (directionChangeTimer >= 2f) // Change interval to 2 seconds
             {
                 // Reset the timer
                 directionChangeTimer = 0f;
 
-                // Change the rotation angle by 90 degrees
-                currentRotationAngle += 90f;
+                // adds rotation
+                float rotationAmount = Random.Range(30f, 90f);
+                currentRotationAngle += rotationAmount;
 
-                // Wrap around to keep it within 0-360 degrees
+                //keeps rotation in between 0-360
+                //it could break the game cus some functions expect angle to be 0-360
                 if (currentRotationAngle >= 360f)
                 {
                     currentRotationAngle -= 360f;
                 }
+            }
 
-                // Calculate new direction based on the current rotation angle
-                Quaternion rotation = Quaternion.Euler(0f, currentRotationAngle, 0f);
-                direction = rotation * Vector3.forward; // Calculate the new direction
-            }
-            else
-            {
-                // Maintain the current direction if not time to change
-                direction = transform.forward; // Keep moving in the last direction
-            }
+            // Calculate new direction based on the current rotation angle
+            Quaternion rotation = Quaternion.Euler(0f, currentRotationAngle, 0f);
+
+            //move to that direction
+            direction = rotation * Vector3.forward; 
         }
+
+        // Rotate the enemy to face the direction it's moving towards
+        Quaternion lookRotation = Quaternion.LookRotation(direction); // look where youre going
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed); // rotates over time, making it more smooth
+
+
+        //// Rotate the enemy to face the direction it's moving towards
+        //if (direction != Vector3.zero) // Check if direction is valid to avoid errors
+        //{
+        //    Quaternion lookRotation = Quaternion.LookRotation(direction); // look where youre going
+        //    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed); // rotates over time, making it more smooth
+        //}
 
         // Move the enemy using CharacterController
         characterController.Move(direction.normalized * speed * Time.deltaTime);
-
-        // Optional: Add randomness in the rotation every few frames
-        if (Random.Range(0, 100) < 2) // Randomly change rotation every few frames
-        {
-            float randomAngle = Random.Range(0f, 360f);
-            Quaternion rotation = Quaternion.Euler(0f, randomAngle, 0f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2f);
-        }
     }
+
 
 
 
