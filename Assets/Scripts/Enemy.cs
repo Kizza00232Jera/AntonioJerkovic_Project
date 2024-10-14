@@ -1,5 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
 public class Enemy : MonoBehaviour
 {
     public float speed = 3f;                //make enemy slower than player probably
@@ -89,14 +90,6 @@ public class Enemy : MonoBehaviour
         // Rotate the enemy to face the direction it's moving towards
         Quaternion lookRotation = Quaternion.LookRotation(direction); // look where youre going
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed); // rotates over time, making it more smooth
-
-
-        //// Rotate the enemy to face the direction it's moving towards
-        //if (direction != Vector3.zero) // Check if direction is valid to avoid errors
-        //{
-        //    Quaternion lookRotation = Quaternion.LookRotation(direction); // look where youre going
-        //    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed); // rotates over time, making it more smooth
-        //}
 
         // Move the enemy using CharacterController
         characterController.Move(direction.normalized * speed * Time.deltaTime);
