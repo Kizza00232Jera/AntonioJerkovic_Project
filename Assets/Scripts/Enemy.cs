@@ -87,9 +87,18 @@ public class Enemy : MonoBehaviour
             direction = rotation * Vector3.forward; 
         }
 
-        // Rotate the enemy to face the direction it's moving towards
-        Quaternion lookRotation = Quaternion.LookRotation(direction); // look where youre going
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed); // rotates over time, making it more smooth
+        //// Rotate the enemy to face the direction it's moving towards
+        //Quaternion lookRotation = Quaternion.LookRotation(direction); // look where youre going
+        //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed); // rotates over time, making it more smooth
+
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+    
+        // Create a new rotation that keeps the current X and Z rotations
+        lookRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, lookRotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+
+        // Smoothly rotate the enemy towards the new look rotation
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+
 
         // Move the enemy using CharacterController
         characterController.Move(direction.normalized * speed * Time.deltaTime);
