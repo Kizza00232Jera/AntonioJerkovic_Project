@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     private void ApplyGravity()
     {
         // Apply gravity and move the character
-        velocity.y += gravity * Time.deltaTime;
+        velocity.y += gravity * Time.deltaTime; //apply gravity
         characterController.Move(velocity * Time.deltaTime); // Move the character
     }
 
