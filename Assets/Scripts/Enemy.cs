@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 public class Enemy : MonoBehaviour
 {
     public float speed = 3f;                //make enemy slower than player probably
     private Transform player;                 // Transform stores a GameObject�s Position, Rotation, Scale
     public bool isRunningAway = false;        // Enemy state, it can run towards you or from u
-    private CharacterController characterController; 
+    private CharacterController characterController;
 
     private Animator animator;
 
@@ -15,12 +16,12 @@ public class Enemy : MonoBehaviour
     private float directionChangeTimer; // making enemy change direction every 2sec if its far from player
     private float currentRotationAngle; // To keep track of the current rotation angle
 
-    public float rotationSpeed = 10f; //how fast enemy can rotate
+    public float rotationSpeed = 40f; //how fast enemy can rotate
 
 
     void Start()
     {
-        
+
         // Getting players 'Transform' info
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -74,8 +75,11 @@ public class Enemy : MonoBehaviour
                 directionChangeTimer = 0f;
 
                 // adds rotation
+                //and smoothens it
                 float rotationAmount = Random.Range(30f, 90f);
-                currentRotationAngle += rotationAmount;
+               currentRotationAngle += rotationAmount;
+               // currentRotationAngle = Mathf.Lerp(currentRotationAngle, currentRotationAngle + rotationAmount, Time.deltaTime);
+
 
                 //keeps rotation in between 0-360
                 //it could break the game cus some functions expect angle to be 0-360
@@ -89,7 +93,7 @@ public class Enemy : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0f, currentRotationAngle, 0f);
 
             //move to that direction
-            direction = rotation * Vector3.forward; 
+            direction = rotation * Vector3.forward;
         }
 
         //// Rotate the enemy to face the direction it's moving towards
@@ -128,5 +132,12 @@ public class Enemy : MonoBehaviour
     public void StartRunningAway()
     {
         isRunningAway = true; // Set the state to running away
+         StartCoroutine(StopRunningAwayAfterTime(20f));
+    }
+
+     private IEnumerator StopRunningAwayAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time); // Wait for the specified time
+        isRunningAway = false; // Deactivate running away
     }
 }
