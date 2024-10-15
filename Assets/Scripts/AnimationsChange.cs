@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class AnimationsController : MonoBehaviour
 {
     private Animator animator;
     private CharacterController characterController; // Reference to the CharacterController
@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isJumping", isJumping);
     }
 
+ 
     private void LateUpdate()
     {
         // Reset jumping state if character is grounded

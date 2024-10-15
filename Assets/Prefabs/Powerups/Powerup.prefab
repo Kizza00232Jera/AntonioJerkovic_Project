@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5575653550441226507}
   - component: {fileID: 9078859844937255136}
   - component: {fileID: 2250017569241020507}
-  - component: {fileID: 5800342137504631250}
   - component: {fileID: 7619830362792544904}
+  - component: {fileID: 4787554316551612592}
   m_Layer: 0
   m_Name: Powerup
   m_TagString: Powerup
@@ -85,18 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5800342137504631250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7700297588304297580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 182015a9877fca8409141f55d13c9f3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &7619830362792544904
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -118,3 +106,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.62762415, y: 0.60531765, z: 0.5440184}
   m_Center: {x: -0.0000072568655, y: 0.23834106, z: 0.00022804737}
+--- !u!114 &4787554316551612592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7700297588304297580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 182015a9877fca8409141f55d13c9f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

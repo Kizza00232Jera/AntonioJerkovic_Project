@@ -91,9 +91,9 @@ public class Enemy : MonoBehaviour
         //Quaternion lookRotation = Quaternion.LookRotation(direction); // look where youre going
         //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed); // rotates over time, making it more smooth
 
+        //// Rotate the enemy to face the direction it's moving towards
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-    
-        // Create a new rotation that keeps the current X and Z rotations
+        // keep X and Z as they are at beginning
         lookRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, lookRotation.eulerAngles.y, transform.rotation.eulerAngles.z);
 
         // Smoothly rotate the enemy towards the new look rotation
@@ -112,11 +112,10 @@ public class Enemy : MonoBehaviour
     void ChasePlayer()
     {
         // Move towards the player's position using CharacterController
-
         Vector3 direction = (player.position - transform.position).normalized;
         characterController.Move(direction * speed * Time.deltaTime);
 
-        // Optional: Rotate the enemy to face the player
+        //Enemy looking the player when its chasing it
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }

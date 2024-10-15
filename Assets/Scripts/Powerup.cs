@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
+
+    public bool isPowerupActive = false;
+
     private void OnTriggerEnter(Collider other)
     {
         //if "player" picks up collides with powerup, it will trigger this script
@@ -11,6 +14,7 @@ public class Powerup : MonoBehaviour
         {
             //it will run activatepowerup and it will remove the powerup
             ActivatePowerup();
+            isPowerupActive = true;
             Destroy(gameObject);
         }
     }

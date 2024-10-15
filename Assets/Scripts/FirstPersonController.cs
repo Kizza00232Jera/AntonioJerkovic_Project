@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class FirstPersonController : MonoBehaviour
 {
-    public float moveSpeed = 5f;         // Speed of player movement
-    private float lookSensitivity = 2f;   // Sensitivity of mouse look
-    private float gravity = -9.81f;       // Gravity force
-    public float jumpHeight = 2f;        // Height of player jump
-    private float maxLookX = 60f;         // Max rotation upwards
-    private float minLookX = -60f;        // Max rotation downwards
+    public float moveSpeed = 5f;         
+    private float lookSensitivity = 2f;   // mouse sensetivity
+    private float gravity = -9.81f;       // gracity cus player doesn't have rigid body but charcontroller
+    public float jumpHeight = 2f;  
+    
 
-    private float rotX;                  // Current X rotation (up/down)
+    private float maxLookX = 45f;        
+    private float minLookX = -45f;       
+    private float rotX;              
+    
     private Vector3 velocity;            // Player's current velocity
     public bool isGrounded;             // Check if the player is on the ground
 
-    private CharacterController characterController; // Reference to CharacterController
-    private Camera playerCamera;         // Reference to the camera
+    private CharacterController characterController; 
+    private Camera playerCamera;         
 
     void Start()
     {
-        // Get the CharacterController component
+      
         characterController = GetComponent<CharacterController>();
-
-        // Get the player's camera (it should be a child of the player)
         playerCamera = Camera.main;
 
         // Lock the cursor to the center of the screen and hide it
@@ -32,64 +32,38 @@ public class FirstPersonController : MonoBehaviour
 
     void Update()
     {
-        Move();         // Handle player movement
-        CameraLook();   // Handle mouse camera rotation
+        //handle moving (wasd) and camera(mouse)
+        Move();         
+        CameraLook();   
     }
 
-    // Handle player movement (WASD keys) and jumping
-    //void Move()
-    //{
-    //    // Check if the player is grounded (touching the ground)
-    //    isGrounded = characterController.isGrounded;
-
-    //    if (isGrounded && velocity.y < 0)
-    //    {
-    //        velocity.y = -2f; // Small downward force to keep grounded
-    //    }
-
-    //    // Get input for movement on the X and Z axes
-    //    float moveX = Input.GetAxis("Horizontal");  // A/D or left/right
-    //    float moveZ = Input.GetAxis("Vertical");    // W/S or forward/backward
-
-    //    // Move the player relative to their local direction (transform)
-    //    Vector3 moveDirection = transform.right * moveX + transform.forward * moveZ;
-    //    characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
-
-    //    // Handle jumping
-    //    if (Input.GetButtonDown("Jump") && isGrounded)
-    //    {
-    //        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // Calculate jump velocity
-    //    }
-
-    //    // Apply gravity to the player
-    //    velocity.y += gravity * Time.deltaTime;
-
-    //    // Move the player based on gravity
-    //    characterController.Move(velocity * Time.deltaTime);
-    //}
 
     void Move()
     {
-        // Improved ground check using Raycast
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, characterController.height / 2 + 0.1f);
+        // Ground check using Raycast
+        //cus isgrounded was not working properly whenever i start to move. 
+
+        
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, characterController.height / 2 + 0.2f);
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; // Small downward force to keep grounded
+            // Small downward force to keep grounded
+            velocity.y = -2f; 
         }
 
         // Get input for movement on the X and Z axes
-        float moveX = Input.GetAxis("Horizontal");  // A/D or left/right
-        float moveZ = Input.GetAxis("Vertical");    // W/S or forward/backward
+        float moveForward = Input.GetAxis("Horizontal");  
+        float rotatePlayer = Input.GetAxis("Vertical");   
 
         // Move the player relative to their local direction (transform)
-        Vector3 moveDirection = transform.right * moveX + transform.forward * moveZ;
+        Vector3 moveDirection = transform.right * moveForward + transform.forward * rotatePlayer;
         characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
 
         // Handle jumping
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // Calculate jump velocity
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
         // Apply gravity to the player
@@ -103,20 +77,30 @@ public class FirstPersonController : MonoBehaviour
     // Handle camera and player rotation (using mouse)
     void CameraLook()
     {
-        // Get mouse movement for looking up/down and left/right
+        // Mouse movement on x and y axis
         float mouseX = Input.GetAxis("Mouse X") * lookSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * lookSensitivity;
 
-        // Rotate the player left and right with the mouseX input (Y-axis rotation)
+        //rotate player left right w mouse
         transform.Rotate(Vector3.up * mouseX);
 
-        // Calculate the new X rotation for looking up and down
+        // rotate up down, but add limits so it can look only a little bit upwards and downwards
         rotX -= mouseY;
-        rotX = Mathf.Clamp(rotX, minLookX, maxLookX);  // Clamp rotation to prevent over-rotating
+        rotX = Mathf.Clamp(rotX, minLookX, maxLookX); 
 
         // Apply the rotation to the player's camera (only affects the camera's X rotation)
         playerCamera.transform.localRotation = Quaternion.Euler(rotX, 0f, 0f);
     }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Collided with enemy");
+            Destroy(hit.gameObject);
+        }
+    }
+
 
 
 }
