@@ -5,16 +5,31 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    // Start is called before the first frame update
+    public List<Enemy> enemies = new List<Enemy>();
+    
+    
+    public Vector3[] spawnPositions;
     void Start()
     {
-       Instantiate(enemyPrefab, new Vector3(3,0.3f,20),enemyPrefab.transform.rotation); 
+        spawnPositions = new Vector3[]
+        {
+            new Vector3(0, 0, 0),      // Position for Enemy 1
+            new Vector3(2, 0, 0),      // Position for Enemy 2
+            new Vector3(4, 0, 0),      // Position for Enemy 3
+            new Vector3(6, 0, 0),      // Position for Enemy 4
+            new Vector3(8, 0, 0)       // Position for Enemy 5
+        };
+
+        SpawnEnemies();
     }
 
 
-    // Update is called once per frame
-    void Update()
+    void SpawnEnemies()
     {
-        
+        foreach (Vector3 position in spawnPositions)
+        {
+           Vector3 spawnPosition = transform.position + position; // Calculate spawn position relative to the SpawnManager
+        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity); // Spawn enemy at the calculated position
+        }
     }
 }

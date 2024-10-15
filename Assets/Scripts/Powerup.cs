@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
-
     public bool isPowerupActive = false;
 
     private void OnTriggerEnter(Collider other)
@@ -21,12 +20,11 @@ public class Powerup : MonoBehaviour
 
     void ActivatePowerup()
     {
-        //when picking up powerup, look for tag Enemy, and change its isRunningAway boolean to Yes.
-        Enemy enemy = FindObjectOfType<Enemy>();
-        if (enemy != null)
+        //when picking up powerup, look for all enemies and change their isRunningAway boolean to true.
+        Enemy[] enemies = FindObjectsOfType<Enemy>(); // Get all enemies in the scene
+        foreach (Enemy enemy in enemies)
         {
-            enemy.isRunningAway = true; 
+            enemy.isRunningAway = true;
         }
-
     }
 }
