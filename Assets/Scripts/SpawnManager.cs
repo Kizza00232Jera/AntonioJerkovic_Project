@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    public GameObject powerupPrefab;
     public List<Enemy> enemies = new List<Enemy>();
     
     
@@ -21,6 +22,7 @@ public class SpawnManager : MonoBehaviour
         };
 
         SpawnEnemies();
+        SpawnPowerup();
     }
 
 
@@ -31,5 +33,9 @@ public class SpawnManager : MonoBehaviour
            Vector3 spawnPosition = transform.position + position; // Calculate spawn position relative to the SpawnManager
         Instantiate(enemyPrefab, spawnPosition, Quaternion.identity); // Spawn enemy at the calculated position
         }
+    }
+
+    void SpawnPowerup() {
+        Instantiate(powerupPrefab, new Vector3(74,0.3f,16), transform.rotation);
     }
 }
