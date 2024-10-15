@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Powerup : MonoBehaviour
 {
-    public bool isPowerupActive = false;
+    public SpawnManager spawnManager;
+   
  
  private void Start()
     {
-      
+       spawnManager = FindObjectOfType<SpawnManager>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -16,24 +17,14 @@ public class Powerup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //it will run activatepowerup and it will remove the powerup
-            ActivatePowerup();
+            spawnManager.ActivatePowerup();
              // Remove the powerup from the scene
             Destroy(gameObject);
         }
           
     }
 
-     void ActivatePowerup()
-    {
-        // Find all enemies in the scene
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
-
-        // Loop through each enemy and set them to run away
-        foreach (Enemy enemy in enemies)
-        {
-            enemy.StartRunningAway();
-        }
-    }
+  
 
    
 }

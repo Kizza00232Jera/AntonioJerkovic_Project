@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public GameObject powerupPrefab;
+
+       public TextMeshProUGUI timerText;
     public List<Enemy> enemies = new List<Enemy>();
-     public float powerupDuration = 20f; // Duration of powerup
+     private float powerupDuration = 7f; // Duration of powerup
     public bool isPowerupActive = false; 
     
     public Vector3[] spawnPositions;
@@ -24,6 +27,8 @@ public class SpawnManager : MonoBehaviour
 
         SpawnEnemies();
         SpawnPowerup();
+
+        timerText.gameObject.SetActive(false);
     }
 
 
@@ -43,20 +48,24 @@ public class SpawnManager : MonoBehaviour
 
      public void ActivatePowerup() 
     {
-        if (!isPowerupActive) 
+       if (!isPowerupActive)
         {
             isPowerupActive = true;
-            // Set all enemies to run away
-            foreach (Enemy enemy in enemies) 
+
+            // Show the timer text and start the countdown
+            timerText.gameObject.SetActive(true); // Enable the timer text
+            
+            StartCoroutine(PowerupTimer());
+
+
+      foreach (Enemy enemy in enemies) 
             {
                 if (enemy != null) 
                 {
-                    enemy.isRunningAway = true;
+                    enemy.isRunningAway = true; // Set enemies to run away
                 }
             }
 
-            // Start the powerup timer
-            StartCoroutine(PowerupTimer());
         }
     }
 
@@ -66,13 +75,15 @@ public class SpawnManager : MonoBehaviour
         
         while (timeRemaining > 0) 
         {
-            // Here, you could update a UI Timer (if needed)
+           timerText.text = Mathf.Ceil(timeRemaining).ToString(); // Show whole seconds
             timeRemaining -= Time.deltaTime;
             yield return null; // Wait for the next frame
         }
 
         // Powerup duration is over
         isPowerupActive = false;
+
+        timerText.gameObject.SetActive(false);
 
         // Reset all enemies' behavior
         foreach (Enemy enemy in enemies) 
