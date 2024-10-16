@@ -25,24 +25,32 @@ public class Enemy : MonoBehaviour
         // Getting players 'Transform' info
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
+        //outline
+        gameObject.GetComponent<Outline>().enabled = false;
+
+
         animator = GetComponent<Animator>();
         animator.SetBool("isWalkingForward", true);
 
         // assign characterController in start so that it can be used later
-        //GetComponent<CharacterController>() -> it takes CharacterController of the Enemy in this case, cus we declared Enemy in class
+        //GetComponent<CharacterController>() -> it takes CharacterController of the Enemy in this case, 
+        //cus we declared Enemy in class and assigned script to Enemy prefab
         characterController = GetComponent<CharacterController>();
     }
 
     void Update()
     {
         //Enemy logic. Run away (is isrunningaway is true) or chase the player
-        if (isRunningAway)
+        if (isRunningAway && gameObject.CompareTag("Enemy"))
         {
             RunAwayFromPlayer();
+            gameObject.GetComponent<Outline>().enabled = true;
+
         }
         else
         {
             ChasePlayer();
+            gameObject.GetComponent<Outline>().enabled = false;
         }
     }
 

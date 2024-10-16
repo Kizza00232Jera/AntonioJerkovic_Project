@@ -9,6 +9,7 @@ public class Powerup : MonoBehaviour
  
  private void Start()
     {
+        gameObject.GetComponent<Outline>().enabled = true;
        spawnManager = FindObjectOfType<SpawnManager>();
     }
     private void OnTriggerEnter(Collider other)

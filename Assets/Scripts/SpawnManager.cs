@@ -14,6 +14,9 @@ public class SpawnManager : MonoBehaviour
     public bool isPowerupActive = false; 
     
     public Vector3[] spawnPositions;
+
+    private int coinsCollected = 0;
+    private int coinsNeeded = 5;
     void Start()
     {
         spawnPositions = new Vector3[]
@@ -43,8 +46,17 @@ public class SpawnManager : MonoBehaviour
     }
 
     void SpawnPowerup() {
-        Instantiate(powerupPrefab, new Vector3(74,0.3f,16), transform.rotation);
+        Instantiate(powerupPrefab, new Vector3(74, 0.3f, 16), transform.rotation);
     }
+
+    public void CollectCoin() 
+{
+    coinsCollected++;
+    if (coinsCollected >= coinsNeeded) 
+    {
+        SpawnPowerup(); // Spawn powerup after all coins are collected
+    }
+}
 
      public void ActivatePowerup() 
     {

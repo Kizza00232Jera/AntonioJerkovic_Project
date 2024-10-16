@@ -818,6 +818,7 @@ GameObject:
   - component: {fileID: 5139838928550841756}
   - component: {fileID: 3424443029726445238}
   - component: {fileID: -3893575215832575545}
+  - component: {fileID: 6447823294238051668}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -904,6 +905,24 @@ MonoBehaviour:
   speed: 3
   isRunningAway: 0
   rotationSpeed: 10
+--- !u!114 &6447823294238051668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843836659052643179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 4.1
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &4021509505271129234
 GameObject:
   m_ObjectHideFlags: 0
