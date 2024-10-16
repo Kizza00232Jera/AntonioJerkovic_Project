@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     public float rotationSpeed = 40f; //how fast enemy can rotate
 
+public ParticleSystem explosionEffect;
 
     void Start()
     {
@@ -156,5 +157,16 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(time); // Wait for the specified time
         isRunningAway = false; // Deactivate running away
+    }   
+public void DestroyEnemy()
+    {
+        // Activate the particle effect
+        explosionEffect.transform.position = transform.position; // Set the position to the enemy's position
+        explosionEffect.Play(); // Play the particle effect
+
+        // Destroy the enemy object after a delay to allow the effect to play
+        Destroy(gameObject); // Destroy the enemy
+        Destroy(explosionEffect.gameObject, explosionEffect.main.duration); // Destroy the particle effect after its duration
     }
+   
 }

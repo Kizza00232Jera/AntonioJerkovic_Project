@@ -16,7 +16,7 @@ public class AnimationsController : MonoBehaviour
     public bool isJumping = false;
 
     public bool isRunning = false;
-    public SpawnManager spawnManager;
+    private SpawnManager spawnManager;
 
 
     void Start()

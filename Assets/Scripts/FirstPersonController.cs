@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FirstPersonController : MonoBehaviour
 {
-    public float moveSpeed = 5f;         
+    public float moveSpeed = 15f;         
     private float lookSensitivity = 2f;   // mouse sensetivity
     private float gravity = -9.81f;       // gracity cus player doesn't have rigid body but charcontroller
     public float jumpHeight = 2f;  
@@ -18,7 +18,9 @@ public class FirstPersonController : MonoBehaviour
     public bool isGrounded;             // Check if the player is on the ground
 
     private CharacterController characterController; 
-    private Camera playerCamera;         
+    private Camera playerCamera;   
+
+    public ParticleSystem explosionEffectPrefab;      
 
     void Start()
     {
@@ -97,9 +99,12 @@ public class FirstPersonController : MonoBehaviour
         if (hit.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Collided with enemy");
+              Instantiate(explosionEffectPrefab, hit.transform.position, Quaternion.identity);
             Destroy(hit.gameObject);
         }
     }
+
+    
 
 
 
