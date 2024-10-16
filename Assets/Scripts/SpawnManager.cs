@@ -6,6 +6,7 @@ using TMPro;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    public GameObject bossEnemyPrefab;
     public GameObject powerupPrefab;
     public GameObject coinPrefab;
 
@@ -43,7 +44,7 @@ public class SpawnManager : MonoBehaviour
         SpawnPowerup();
 
         timerText.gameObject.SetActive(false);
-        coinText.text = "Coins" + coinsCollected + "/" + coinsNeeded;
+        coinText.text = "Coins " + coinsCollected + "/" + coinsNeeded;
     }
 
 
@@ -55,17 +56,19 @@ public class SpawnManager : MonoBehaviour
             GameObject enemyInstance = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity); // Spawn enemy at the calculated position
             enemies.Add(enemyInstance.GetComponent<Enemy>());
         }
+        Instantiate(bossEnemyPrefab, new Vector3(74, 0.3f, 16), new Quaternion(0, 0, 0, 0));
+
     }
 
-     void SpawnCoins()
+  void SpawnCoins()
+{
+    // Spawn one coin in each area
+    for (int i = 0; i < coinsNeeded; i++)
     {
-        // Spawn one coin in each area
-        for (int i = 0; i < coinsNeeded; i++)
-        {
-            Vector3 randomPosition = GetRandomPositionInArea(i);
-            Instantiate(coinPrefab, randomPosition, Quaternion.identity);
-        }
+        Vector3 randomPosition = GetRandomPositionInArea(i);
+        Instantiate(coinPrefab, randomPosition, Quaternion.identity);
     }
+}
 
    
 
@@ -86,7 +89,7 @@ Vector3 GetRandomPositionInArea(int areaIndex)
     public void CollectCoin() 
 {
     coinsCollected++;
-    coinText.text = "Coins" + coinsCollected + "/" + coinsNeeded;
+    coinText.text = "Coins " + coinsCollected + "/" + coinsNeeded;
     if (coinsCollected >= coinsNeeded) 
     {
         SpawnPowerup(); // Spawn powerup after all coins are collected

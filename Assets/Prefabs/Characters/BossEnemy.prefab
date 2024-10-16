@@ -1758,7 +1758,7 @@ GameObject:
   - component: {fileID: 133824841020349007}
   - component: {fileID: 7437324540499191994}
   - component: {fileID: 5150150875608636998}
-  - component: {fileID: -57776039571526426}
+  - component: {fileID: 5670166566301710360}
   m_Layer: 0
   m_Name: BossEnemy
   m_TagString: BossEnemy
@@ -1800,7 +1800,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: eb5a4c56e9f386e4e9f9d38b85d75fd0, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1833,8 +1833,8 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-57776039571526426
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &5670166566301710360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

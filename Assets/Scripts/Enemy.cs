@@ -5,7 +5,7 @@ using TMPro;
 public class Enemy : MonoBehaviour
 {
     public float speed = 3f;                //make enemy slower than player probably
-    private Transform player;                 // Transform stores a GameObject�s Position, Rotation, Scale
+    private Transform player;                 // Transform stores a GameObjects Position, Rotation, Scale
     public bool isRunningAway = false;        // Enemy state, it can run towards you or from u
     private CharacterController characterController;
 
@@ -25,11 +25,17 @@ public class Enemy : MonoBehaviour
         // Getting players 'Transform' info
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
+
         //outline
-        gameObject.GetComponent<Outline>().enabled = false;
+        var outline = gameObject.GetComponent<Outline>();
+        if(outline != null) {
+            outline.enabled = false;
+        }
+        
 
 
         animator = GetComponent<Animator>();
+
         animator.SetBool("isWalkingForward", true);
 
         // assign characterController in start so that it can be used later
@@ -47,10 +53,13 @@ public class Enemy : MonoBehaviour
             gameObject.GetComponent<Outline>().enabled = true;
 
         }
-        else
+        else if (gameObject.CompareTag("Enemy"))
         {
             ChasePlayer();
             gameObject.GetComponent<Outline>().enabled = false;
+        }
+        else if (gameObject.CompareTag("BossEnemy")) {
+            ChasePlayer();
         }
     }
 
