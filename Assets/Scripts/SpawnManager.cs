@@ -10,6 +10,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject coinPrefab;
 
        public TextMeshProUGUI timerText;
+       public TextMeshProUGUI coinText;
     public List<Enemy> enemies = new List<Enemy>();
      private float powerupDuration = 7f; // Duration of powerup
     public bool isPowerupActive = false; 
@@ -38,11 +39,11 @@ public class SpawnManager : MonoBehaviour
         coinSpawnAreas.Add(new Vector3[] { new Vector3(75, 1, 15), new Vector3(75, 1, -60) });  // Area 4
 
         SpawnCoins();
-
         SpawnEnemies();
         SpawnPowerup();
 
         timerText.gameObject.SetActive(false);
+        coinText.text = "Coins" + coinsCollected + "/" + coinsNeeded;
     }
 
 
@@ -85,6 +86,7 @@ Vector3 GetRandomPositionInArea(int areaIndex)
     public void CollectCoin() 
 {
     coinsCollected++;
+    coinText.text = "Coins" + coinsCollected + "/" + coinsNeeded;
     if (coinsCollected >= coinsNeeded) 
     {
         SpawnPowerup(); // Spawn powerup after all coins are collected
