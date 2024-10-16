@@ -15,11 +15,17 @@ public class AnimationsController : MonoBehaviour
     public bool isIdle = true;
     public bool isJumping = false;
 
+    public bool isRunning = false;
+    public SpawnManager spawnManager;
+
+
     void Start()
     {
         // Reference to Animator and CharacterController components
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+       spawnManager = FindObjectOfType<SpawnManager>();
+
     }
 
     void Update()
@@ -43,15 +49,22 @@ public class AnimationsController : MonoBehaviour
     private void UpdateMovementStates(float verticalInput)
     {
         // Update walking and idle states based on input
-        if (verticalInput > 0)
+        if (verticalInput > 0 && !spawnManager.isPowerupActive)
         {
             isWalkingForward = true;
             isIdle = false;
+            isRunning = false;
         }
-        else
+        else if (verticalInput > 0 && spawnManager.isPowerupActive)
         {
             isWalkingForward = false;
+            isIdle = false;
+            isRunning = true;
+        }
+        else {
+            isWalkingForward = false;
             isIdle = true;
+            isRunning = false;
         }
     }
 
@@ -77,6 +90,7 @@ public class AnimationsController : MonoBehaviour
         animator.SetBool("isWalkingForward", isWalkingForward);
         animator.SetBool("isIdle", isIdle);
         animator.SetBool("isJumping", isJumping);
+        animator.SetBool("isRunning", isRunning);
     }
 
  
