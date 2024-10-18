@@ -15,6 +15,7 @@ public class SpawnManager : MonoBehaviour
        public TextMeshProUGUI timerText;
        public TextMeshProUGUI coinText;
        public TextMeshProUGUI gameOverText;
+       
     public Button restartButton;
     public List<Enemy> enemies = new List<Enemy>();
      private float powerupDuration = 7f; // Duration of powerup
@@ -32,15 +33,7 @@ public class SpawnManager : MonoBehaviour
      
     void Start()
     {
-        spawnPositions = new Vector3[]
-        {
-            new Vector3(0, 0, 0),      // Position for Enemy 1
-            new Vector3(2, 0, 0),      // Position for Enemy 2
-            new Vector3(4, 0, 0),      // Position for Enemy 3
-            new Vector3(6, 0, 0),      // Position for Enemy 4
-            new Vector3(8, 0, 0)       // Position for Enemy 5
-        };
-
+       
          // Define the four areas where coins will spawn
         coinSpawnAreas.Add(new Vector3[] { new Vector3(0, 1, 21), new Vector3(70, 1, 21) });    // Area 1
         coinSpawnAreas.Add(new Vector3[] { new Vector3(80, 1, 21), new Vector3(155, 1, 21) });  // Area 2
@@ -48,7 +41,7 @@ public class SpawnManager : MonoBehaviour
         coinSpawnAreas.Add(new Vector3[] { new Vector3(75, 1, 15), new Vector3(75, 1, -60) });  // Area 4
 
         SpawnCoins();
-        SpawnEnemies();
+        SpawnEnemies(20);
         Instantiate(bossEnemyPrefab, transform.position + new Vector3(12,0,0), Quaternion.identity);
 
         timerText.gameObject.SetActive(false);
@@ -58,16 +51,29 @@ public class SpawnManager : MonoBehaviour
     }
 
 
-    void SpawnEnemies()
+    void SpawnEnemies(int numberOfEnemies)
     {
-        foreach (Vector3 position in spawnPositions)
-        {
-            Vector3 spawnPosition = transform.position + position; // Calculate spawn position relative to the SpawnManager
-            GameObject enemyInstance = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity); // Spawn enemy at the calculated position
-            enemies.Add(enemyInstance.GetComponent<Enemy>());
-        }
+         for (int i = 0; i < numberOfEnemies; i++) // Assuming you want to spawn 5 enemies
+    {
+        Vector3 randomPosition = GetRandomPositionForEnemy();
+        GameObject enemyInstance = Instantiate(enemyPrefab, randomPosition, Quaternion.identity); // Spawn enemy at the random position
+        enemies.Add(enemyInstance.GetComponent<Enemy>());
+    }
 
     }
+
+    Vector3 GetRandomPositionForEnemy()
+{
+    // Define the bounds for random position, adjust as needed
+    float randomX = Random.Range(-50, 50); // Random X position within -50 to 50
+    float randomY = 0;                     // Keep Y fixed (ground level)
+    float randomZ = Random.Range(-50, 50); // Random Z position within -50 to 50
+
+    Vector3 spawnManagerPosition = transform.position;
+
+    // Return the new position relative to the SpawnManager
+    return new Vector3(spawnManagerPosition.x + randomX, randomY, spawnManagerPosition.z + randomZ);
+}
 
   void SpawnCoins()
 {
