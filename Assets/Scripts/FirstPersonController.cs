@@ -4,28 +4,32 @@ using UnityEngine;
 
 public class FirstPersonController : MonoBehaviour
 {
-    public float moveSpeed = 15f;         
+    public float moveSpeed = 15f;
     private float lookSensitivity = 2f;   // mouse sensetivity
     private float gravity = -9.81f;       // gracity cus player doesn't have rigid body but charcontroller
-    public float jumpHeight = 2f;  
-    
+    public float jumpHeight = 2f;
 
-    private float maxLookX = 45f;        
-    private float minLookX = -45f;       
-    private float rotX;              
-    
+
+    private float maxLookX = 45f;
+    private float minLookX = -45f;
+    private float rotX;
+
     private Vector3 velocity;            // Player's current velocity
     public bool isGrounded;             // Check if the player is on the ground
 
-    private CharacterController characterController; 
-    private Camera playerCamera;   
+    private CharacterController characterController;
+    private Camera playerCamera;
+
+    private SpawnManager spawnManager;
+    private Enemy enemy;
 
 
     void Start()
     {
-      
+
         characterController = GetComponent<CharacterController>();
         playerCamera = Camera.main;
+        spawnManager = FindObjectOfType<SpawnManager>();
 
         // Lock the cursor to the center of the screen and hide it
         Cursor.lockState = CursorLockMode.Locked;
@@ -34,8 +38,8 @@ public class FirstPersonController : MonoBehaviour
     void Update()
     {
         //handle moving (wasd) and camera(mouse)
-        Move();         
-        CameraLook();   
+        Move();
+        CameraLook();
     }
 
 
@@ -44,18 +48,18 @@ public class FirstPersonController : MonoBehaviour
         // Ground check using Raycast
         //cus isgrounded was not working properly whenever i start to move. 
 
-        
+
         isGrounded = Physics.Raycast(transform.position, Vector3.down, characterController.height / 2 + 0.1f);
 
         if (isGrounded && velocity.y < 0)
         {
             // Small downward force to keep grounded
-            velocity.y = -2f; 
+            velocity.y = -2f;
         }
 
         // Get input for movement on the X and Z axes
-        float moveForward = Input.GetAxis("Horizontal");  
-        float rotatePlayer = Input.GetAxis("Vertical");   
+        float moveForward = Input.GetAxis("Horizontal");
+        float rotatePlayer = Input.GetAxis("Vertical");
 
         // Move the player relative to their local direction (transform)
         Vector3 moveDirection = transform.right * moveForward + transform.forward * rotatePlayer;
@@ -87,30 +91,60 @@ public class FirstPersonController : MonoBehaviour
 
         // rotate up down, but add limits so it can look only a little bit upwards and downwards
         rotX -= mouseY;
-        rotX = Mathf.Clamp(rotX, minLookX, maxLookX); 
+        rotX = Mathf.Clamp(rotX, minLookX, maxLookX);
 
         // Apply the rotation to the player's camera (only affects the camera's X rotation)
         playerCamera.transform.localRotation = Quaternion.Euler(rotX, 0f, 0f);
     }
 
-   void OnControllerColliderHit(ControllerColliderHit hit)
+    void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.gameObject.CompareTag("Enemy"))
         {
+
             Debug.Log("Collided with enemy");
 
             // Get the enemy script
             Enemy enemy = hit.gameObject.GetComponent<Enemy>();
-            if (enemy != null)
+
+            if (!enemy.isRunningAway)
             {
-                enemy.DestroyEnemy(); // Trigger enemy destruction and particle effect
+                DestroyPlayer(); // Trigger enemy destruction and particle effect
             }
-
-           
-
+            else
+            {
+                enemy.DestroyEnemy();
+            }
         }
+
+         if (hit.gameObject.CompareTag("BossEnemy"))
+    {
+        Debug.Log("Collided with Boss");
+
+        // Get the BossEnemy component
+        Enemy bossEnemy = hit.gameObject.GetComponent<Enemy>();
+
+        // Ensure the boss enemy is not null
+        if (bossEnemy != null)
+        {
+            // Check if all enemies are destroyed
+            if (bossEnemy.allEnemiesDestroyed)
+            {
+                bossEnemy.DestroyEnemy(); // Destroy the BossEnemy
+            }
+            else
+            {
+                DestroyPlayer(); // Destroy player on collision
+            }
+        }
+     }
     }
-    
+
+    private void DestroyPlayer()
+    {
+        Destroy(gameObject);
+    }
+
 
 
 

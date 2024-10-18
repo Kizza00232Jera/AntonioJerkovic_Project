@@ -18,11 +18,11 @@ public class Enemy : MonoBehaviour
 
     public float rotationSpeed = 40f; //how fast enemy can rotate
 
-  //  public ParticleSystem explosion;
+    //  public ParticleSystem explosion;
     public GameObject ghostPrefab;
 
     public bool allEnemiesDestroyed = false;
-  
+
 
     void Start()
     {
@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
 
-     
+
 
 
         animator = GetComponent<Animator>();
@@ -44,60 +44,62 @@ public class Enemy : MonoBehaviour
         characterController = GetComponent<CharacterController>();
     }
 
- void Update()
-{
-     areAllEnemiesDestroyed();
-
-    // Check if the object is tagged as an enemy, boss, or ghost
-    if (gameObject.CompareTag("Enemy"))
+    void Update()
     {
-        // If power-up is active, the enemy runs away, otherwise it chases the player
-        if (isRunningAway)
+        areAllEnemiesDestroyed();
+
+        // Check if the object is tagged as an enemy, boss, or ghost
+        if (gameObject.CompareTag("Enemy"))
         {
+            // If power-up is active, the enemy runs away, otherwise it chases the player
+            if (isRunningAway)
+            {
+                RunAwayFromPlayer();
+            }
+            else
+            {
+                ChasePlayer();
+            }
+        }
+        else if (gameObject.CompareTag("BossEnemy"))
+        {
+            // Boss enemy always chases the player at the start
+            if (!allEnemiesDestroyed)
+            {
+                ChasePlayer();
+            }
+            // Boss runs away when all enemies are destroyed and the power-up is active
+            else if (allEnemiesDestroyed && isRunningAway)
+            {
+                RunAwayFromPlayer();
+            }
+            else if (allEnemiesDestroyed && !isRunningAway)
+            {
+                ChasePlayer();
+            }
+        }
+        else if (gameObject.CompareTag("Ghost"))
+        {
+            // Ghost always runs away from the player
             RunAwayFromPlayer();
         }
-        else
-        {
-            ChasePlayer();
-        }
-    }
-    else if (gameObject.CompareTag("BossEnemy"))
-    {
-        // Boss enemy always chases the player at the start
-        if (!allEnemiesDestroyed)
-        {
-            ChasePlayer();
-        }
-        // Boss runs away when all enemies are destroyed and the power-up is active
-        else if (allEnemiesDestroyed && isRunningAway)
-        {
-            RunAwayFromPlayer();
-        }
-        else if (allEnemiesDestroyed && !isRunningAway) {
-            ChasePlayer();
-        }
-    }
-    else if (gameObject.CompareTag("Ghost"))
-    {
-        // Ghost always runs away from the player
-        RunAwayFromPlayer();
+
     }
 
-}
+    // Helper functions:
+    public void areAllEnemiesDestroyed()
+    {
+        // Find all active GameObjects with the "Enemy" tag
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-// Helper functions:
-public void areAllEnemiesDestroyed()
-{
-    // Find all active GameObjects with the "Enemy" tag
-    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-    
-    // If no enemies are found, return true
-    if (enemies.Length == 0) {
-        Debug.Log("All enemies destroyed");
-        allEnemiesDestroyed = true;
+        // If no enemies are found, return true
+        if (enemies.Length == 0)
+        {
+            Debug.Log("All enemies destroyed");
+            allEnemiesDestroyed = true;
+        }
+
     }
-   
-}
 
 
 
@@ -131,8 +133,8 @@ public void areAllEnemiesDestroyed()
                 // adds rotation
                 //and smoothens it
                 float rotationAmount = Random.Range(30f, 90f);
-               currentRotationAngle += rotationAmount;
-               // currentRotationAngle = Mathf.Lerp(currentRotationAngle, currentRotationAngle + rotationAmount, Time.deltaTime);
+                currentRotationAngle += rotationAmount;
+                // currentRotationAngle = Mathf.Lerp(currentRotationAngle, currentRotationAngle + rotationAmount, Time.deltaTime);
 
 
                 //keeps rotation in between 0-360
@@ -186,55 +188,57 @@ public void areAllEnemiesDestroyed()
     public void StartRunningAway()
     {
         isRunningAway = true; // Set the state to running away
-         StartCoroutine(StopRunningAwayAfterTime(20f));
+        StartCoroutine(StopRunningAwayAfterTime(20f));
     }
 
-     private IEnumerator StopRunningAwayAfterTime(float time)
+    private IEnumerator StopRunningAwayAfterTime(float time)
     {
         yield return new WaitForSeconds(time); // Wait for the specified time
         isRunningAway = false; // Deactivate running away
-    }   
- public void DestroyEnemy()
-{
-    // Instantiate the ghost at the enemy's position and rotation
-    if (ghostPrefab != null)
+    }
+    public void DestroyEnemy()
     {
-        GameObject ghost = Instantiate(ghostPrefab, transform.position, transform.rotation);
-
-       
-        // Play the ghost's sound if there is an AudioSource attached
-        AudioSource ghostAudio = ghost.GetComponent<AudioSource>();
-        if (ghostAudio != null)
+        // Instantiate the ghost at the enemy's position and rotation
+        if (ghostPrefab != null)
         {
-            ghostAudio.Play();
+            GameObject ghost = Instantiate(ghostPrefab, transform.position, transform.rotation);
+
+
+            // Play the ghost's sound if there is an AudioSource attached
+            AudioSource ghostAudio = ghost.GetComponent<AudioSource>();
+            if (ghostAudio != null)
+            {
+                ghostAudio.Play();
+            }
         }
+
+
+        // Destroy the enemy object itself
+        Destroy(gameObject);
     }
 
-        
-    // Destroy the enemy object itself
-    Destroy(gameObject);
-}
 
 
-//  public void DestroyEnemy()
-// {
-//     // Instantiate the ghost at the enemy's position and rotation
-//     if (ghostPrefab != null)
-//     {
-//         GameObject ghost = Instantiate(ghostPrefab, transform.position, transform.rotation);
 
-       
-//         // Play the ghost's sound if there is an AudioSource attached
-//         AudioSource ghostAudio = ghost.GetComponent<AudioSource>();
-//         if (ghostAudio != null)
-//         {
-//             ghostAudio.Play();
-//         }
-//     }
+    //  public void DestroyEnemy()
+    // {
+    //     // Instantiate the ghost at the enemy's position and rotation
+    //     if (ghostPrefab != null)
+    //     {
+    //         GameObject ghost = Instantiate(ghostPrefab, transform.position, transform.rotation);
 
-//         explosion.Play();
-//     // Destroy the enemy object itself
-//     Destroy(gameObject, 1f);
-// }
+
+    //         // Play the ghost's sound if there is an AudioSource attached
+    //         AudioSource ghostAudio = ghost.GetComponent<AudioSource>();
+    //         if (ghostAudio != null)
+    //         {
+    //             ghostAudio.Play();
+    //         }
+    //     }
+
+    //         explosion.Play();
+    //     // Destroy the enemy object itself
+    //     Destroy(gameObject, 1f);
+    // }
 
 }

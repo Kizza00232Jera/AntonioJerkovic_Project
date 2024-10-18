@@ -1849,7 +1849,8 @@ MonoBehaviour:
   speed: 3
   isRunningAway: 0
   rotationSpeed: 40
-  ghostPrefab: {fileID: 0}
+  ghostPrefab: {fileID: 5267381999035877047, guid: f4b77b5bcffa7a74ab95447b9bc0371a, type: 3}
+  allEnemiesDestroyed: 0
 --- !u!1 &6050301832814785431
 GameObject:
   m_ObjectHideFlags: 0

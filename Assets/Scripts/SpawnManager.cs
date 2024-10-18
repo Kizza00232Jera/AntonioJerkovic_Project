@@ -23,6 +23,8 @@ public class SpawnManager : MonoBehaviour
     private int coinsNeeded = 4;
 
      private List<Vector3[]> coinSpawnAreas = new List<Vector3[]>();
+
+     
     void Start()
     {
         spawnPositions = new Vector3[]
@@ -159,7 +161,7 @@ Vector3 GetRandomPositionInArea(int areaIndex)
                 enemy.isRunningAway = false;
             }
         }
-        
+
         GameObject[] bossEnemies = GameObject.FindGameObjectsWithTag("BossEnemy");
         foreach (GameObject bossEnemyObj in bossEnemies)
         {
