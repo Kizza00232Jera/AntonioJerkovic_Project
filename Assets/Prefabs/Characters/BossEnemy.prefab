@@ -1775,7 +1775,7 @@ Transform:
   m_GameObject: {fileID: 6020579244957908585}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 75.65315, y: 0.3000002, z: 15.913198}
+  m_LocalPosition: {x: 13.77, y: 0.3000002, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1849,6 +1849,7 @@ MonoBehaviour:
   speed: 3
   isRunningAway: 0
   rotationSpeed: 40
+  ghostPrefab: {fileID: 0}
 --- !u!1 &6050301832814785431
 GameObject:
   m_ObjectHideFlags: 0

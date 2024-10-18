@@ -16,8 +16,6 @@ public class SpawnManager : MonoBehaviour
      private float powerupDuration = 7f; // Duration of powerup
     public bool isPowerupActive = false; 
 
-
-
     
     public Vector3[] spawnPositions;
 
@@ -45,6 +43,7 @@ public class SpawnManager : MonoBehaviour
         SpawnCoins();
         SpawnEnemies();
         SpawnPowerup();
+        Instantiate(bossEnemyPrefab, transform.position + new Vector3(12,0,0), Quaternion.identity);
 
         timerText.gameObject.SetActive(false);
         coinText.text = "Coins " + coinsCollected + "/" + coinsNeeded;
@@ -124,6 +123,16 @@ Vector3 GetRandomPositionInArea(int areaIndex)
             }
 
         }
+
+        GameObject[] bossEnemies = GameObject.FindGameObjectsWithTag("BossEnemy");
+        foreach (GameObject bossEnemyObj in bossEnemies)
+        {
+            Enemy bossEnemy = bossEnemyObj.GetComponent<Enemy>();
+            if (bossEnemy != null)
+            {
+                bossEnemy.isRunningAway = true; // Set BossEnemy to run away
+            }
+        }
     }
 
     private IEnumerator PowerupTimer() 
@@ -148,6 +157,16 @@ Vector3 GetRandomPositionInArea(int areaIndex)
             if (enemy != null) 
             {
                 enemy.isRunningAway = false;
+            }
+        }
+        
+        GameObject[] bossEnemies = GameObject.FindGameObjectsWithTag("BossEnemy");
+        foreach (GameObject bossEnemyObj in bossEnemies)
+        {
+            Enemy bossEnemy = bossEnemyObj.GetComponent<Enemy>();
+            if (bossEnemy != null)
+            {
+                bossEnemy.isRunningAway = false; // Set BossEnemy to run away
             }
         }
     }

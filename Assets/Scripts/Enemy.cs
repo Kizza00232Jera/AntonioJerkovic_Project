@@ -21,7 +21,8 @@ public class Enemy : MonoBehaviour
   //  public ParticleSystem explosion;
     public GameObject ghostPrefab;
 
-
+    public bool allEnemiesDestroyed = false;
+  
 
     void Start()
     {
@@ -43,25 +44,61 @@ public class Enemy : MonoBehaviour
         characterController = GetComponent<CharacterController>();
     }
 
-    void Update()
-    {
-        //Enemy logic. Run away (is isrunningaway is true) or chase the player
-        if (isRunningAway && gameObject.CompareTag("Enemy"))
-        {
-            RunAwayFromPlayer();
+ void Update()
+{
+     areAllEnemiesDestroyed();
 
+    // Check if the object is tagged as an enemy, boss, or ghost
+    if (gameObject.CompareTag("Enemy"))
+    {
+        // If power-up is active, the enemy runs away, otherwise it chases the player
+        if (isRunningAway)
+        {
+            RunAwayFromPlayer();
         }
-        else if (gameObject.CompareTag("Enemy"))
+        else
         {
             ChasePlayer();
-        }
-        else if (gameObject.CompareTag("BossEnemy")) {
-            ChasePlayer();
-        }
-        else if (gameObject.CompareTag("Ghost")) {
-            RunAwayFromPlayer();
         }
     }
+    else if (gameObject.CompareTag("BossEnemy"))
+    {
+        // Boss enemy always chases the player at the start
+        if (!allEnemiesDestroyed)
+        {
+            ChasePlayer();
+        }
+        // Boss runs away when all enemies are destroyed and the power-up is active
+        else if (allEnemiesDestroyed && isRunningAway)
+        {
+            RunAwayFromPlayer();
+        }
+        else if (allEnemiesDestroyed && !isRunningAway) {
+            ChasePlayer();
+        }
+    }
+    else if (gameObject.CompareTag("Ghost"))
+    {
+        // Ghost always runs away from the player
+        RunAwayFromPlayer();
+    }
+
+}
+
+// Helper functions:
+public void areAllEnemiesDestroyed()
+{
+    // Find all active GameObjects with the "Enemy" tag
+    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    
+    // If no enemies are found, return true
+    if (enemies.Length == 0) {
+        Debug.Log("All enemies destroyed");
+        allEnemiesDestroyed = true;
+    }
+   
+}
+
 
 
     public void RunAwayFromPlayer()
