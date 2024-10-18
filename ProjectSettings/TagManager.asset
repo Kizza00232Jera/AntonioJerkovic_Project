@@ -8,6 +8,7 @@ TagManager:
   - Powerup
   - BossEnemy
   - Coin
+  - Ghost
   layers:
   - Default
   - TransparentFX

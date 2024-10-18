@@ -18,6 +18,9 @@ public class Enemy : MonoBehaviour
 
     public float rotationSpeed = 40f; //how fast enemy can rotate
 
+    public GameObject ghostPrefab;
+
+
 
     void Start()
     {
@@ -53,6 +56,9 @@ public class Enemy : MonoBehaviour
         }
         else if (gameObject.CompareTag("BossEnemy")) {
             ChasePlayer();
+        }
+        else if (gameObject.CompareTag("Ghost")) {
+            RunAwayFromPlayer();
         }
     }
 
@@ -152,7 +158,11 @@ public class Enemy : MonoBehaviour
     }   
  public void DestroyEnemy()
 {
-    
+      // Instantiate the ghost at the enemy's position and rotation
+    if (ghostPrefab != null)
+    {
+        Instantiate(ghostPrefab, transform.position, transform.rotation);
+    }
 
     // Destroy the enemy object itself
     Destroy(gameObject);

@@ -1374,6 +1374,7 @@ MonoBehaviour:
   speed: 3
   isRunningAway: 0
   rotationSpeed: 40
+  ghostPrefab: {fileID: 5267381999035877047, guid: f4b77b5bcffa7a74ab95447b9bc0371a, type: 3}
 --- !u!135 &-7360054353590724427
 SphereCollider:
   m_ObjectHideFlags: 0
