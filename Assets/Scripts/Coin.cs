@@ -6,8 +6,6 @@ public class Coin : MonoBehaviour
 
     void Start()
     {
-        gameObject.GetComponent<Outline>().enabled = true;
-
         // Find the SpawnManager object in the scene and store a reference to it
         spawnManager = FindObjectOfType<SpawnManager>();
     }

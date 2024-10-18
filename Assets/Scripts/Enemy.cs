@@ -18,7 +18,6 @@ public class Enemy : MonoBehaviour
 
     public float rotationSpeed = 40f; //how fast enemy can rotate
 
-public ParticleSystem explosionEffect;
 
     void Start()
     {
@@ -27,12 +26,7 @@ public ParticleSystem explosionEffect;
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
 
-        //outline
-        var outline = gameObject.GetComponent<Outline>();
-        if(outline != null) {
-            outline.enabled = false;
-        }
-        
+     
 
 
         animator = GetComponent<Animator>();
@@ -51,13 +45,11 @@ public ParticleSystem explosionEffect;
         if (isRunningAway && gameObject.CompareTag("Enemy"))
         {
             RunAwayFromPlayer();
-            gameObject.GetComponent<Outline>().enabled = true;
 
         }
         else if (gameObject.CompareTag("Enemy"))
         {
             ChasePlayer();
-            gameObject.GetComponent<Outline>().enabled = false;
         }
         else if (gameObject.CompareTag("BossEnemy")) {
             ChasePlayer();
@@ -158,15 +150,13 @@ public ParticleSystem explosionEffect;
         yield return new WaitForSeconds(time); // Wait for the specified time
         isRunningAway = false; // Deactivate running away
     }   
-public void DestroyEnemy()
-    {
-        // Activate the particle effect
-        explosionEffect.transform.position = transform.position; // Set the position to the enemy's position
-        explosionEffect.Play(); // Play the particle effect
+ public void DestroyEnemy()
+{
+    
 
-        // Destroy the enemy object after a delay to allow the effect to play
-        Destroy(gameObject); // Destroy the enemy
-        Destroy(explosionEffect.gameObject, explosionEffect.main.duration); // Destroy the particle effect after its duration
-    }
-   
+    // Destroy the enemy object itself
+    Destroy(gameObject);
+}
+
+
 }

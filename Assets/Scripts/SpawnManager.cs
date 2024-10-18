@@ -15,6 +15,9 @@ public class SpawnManager : MonoBehaviour
     public List<Enemy> enemies = new List<Enemy>();
      private float powerupDuration = 7f; // Duration of powerup
     public bool isPowerupActive = false; 
+
+
+
     
     public Vector3[] spawnPositions;
 
@@ -56,7 +59,6 @@ public class SpawnManager : MonoBehaviour
             GameObject enemyInstance = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity); // Spawn enemy at the calculated position
             enemies.Add(enemyInstance.GetComponent<Enemy>());
         }
-        Instantiate(bossEnemyPrefab, new Vector3(74, 0.3f, 16), new Quaternion(0, 0, 0, 0));
 
     }
 

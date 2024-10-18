@@ -20,7 +20,6 @@ public class FirstPersonController : MonoBehaviour
     private CharacterController characterController; 
     private Camera playerCamera;   
 
-    public ParticleSystem explosionEffectPrefab;      
 
     void Start()
     {
@@ -94,16 +93,23 @@ public class FirstPersonController : MonoBehaviour
         playerCamera.transform.localRotation = Quaternion.Euler(rotX, 0f, 0f);
     }
 
-    void OnControllerColliderHit(ControllerColliderHit hit)
+   void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Collided with enemy");
-              Instantiate(explosionEffectPrefab, hit.transform.position, Quaternion.identity);
-            Destroy(hit.gameObject);
+
+            // Get the enemy script
+            Enemy enemy = hit.gameObject.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.DestroyEnemy(); // Trigger enemy destruction and particle effect
+            }
+
+           
+
         }
     }
-
     
 
 
