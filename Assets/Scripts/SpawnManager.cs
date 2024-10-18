@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -12,9 +14,12 @@ public class SpawnManager : MonoBehaviour
 
        public TextMeshProUGUI timerText;
        public TextMeshProUGUI coinText;
+       public TextMeshProUGUI gameOverText;
+    public Button restartButton;
     public List<Enemy> enemies = new List<Enemy>();
      private float powerupDuration = 7f; // Duration of powerup
     public bool isPowerupActive = false; 
+    
 
     
     public Vector3[] spawnPositions;
@@ -48,6 +53,8 @@ public class SpawnManager : MonoBehaviour
 
         timerText.gameObject.SetActive(false);
         coinText.text = "Coins " + currentCoinCount + "/" + coinsNeededForPowerup ;
+
+        restartButton.onClick.AddListener(RestartGame);
     }
 
 
@@ -182,5 +189,15 @@ public void OnPowerupCollected()
                 bossEnemy.isRunningAway = false; // Set BossEnemy to run away
             }
         }
+    }
+
+    public void GameOver() {
+        gameOverText.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(true);
+    }
+
+    public void RestartGame() {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

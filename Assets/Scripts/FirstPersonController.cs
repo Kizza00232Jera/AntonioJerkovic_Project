@@ -32,7 +32,7 @@ public class FirstPersonController : MonoBehaviour
         spawnManager = FindObjectOfType<SpawnManager>();
 
         // Lock the cursor to the center of the screen and hide it
-        Cursor.lockState = CursorLockMode.Locked;
+       // Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -110,6 +110,7 @@ public class FirstPersonController : MonoBehaviour
             if (!enemy.isRunningAway)
             {
                 DestroyPlayer(); // Trigger enemy destruction and particle effect
+                spawnManager.GameOver();
             }
             else
             {
@@ -135,6 +136,7 @@ public class FirstPersonController : MonoBehaviour
             else
             {
                 DestroyPlayer(); // Destroy player on collision
+                spawnManager.GameOver();
             }
         }
      }
@@ -142,7 +144,8 @@ public class FirstPersonController : MonoBehaviour
 
     private void DestroyPlayer()
     {
-        gameObject.SetActive(false);
+        Time.timeScale = 0;
+        
     }
 
 
