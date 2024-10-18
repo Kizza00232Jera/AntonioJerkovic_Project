@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     public float rotationSpeed = 40f; //how fast enemy can rotate
 
+  //  public ParticleSystem explosion;
     public GameObject ghostPrefab;
 
 
@@ -158,15 +159,45 @@ public class Enemy : MonoBehaviour
     }   
  public void DestroyEnemy()
 {
-      // Instantiate the ghost at the enemy's position and rotation
+    // Instantiate the ghost at the enemy's position and rotation
     if (ghostPrefab != null)
     {
-        Instantiate(ghostPrefab, transform.position, transform.rotation);
+        GameObject ghost = Instantiate(ghostPrefab, transform.position, transform.rotation);
+
+       
+        // Play the ghost's sound if there is an AudioSource attached
+        AudioSource ghostAudio = ghost.GetComponent<AudioSource>();
+        if (ghostAudio != null)
+        {
+            ghostAudio.Play();
+        }
     }
 
+        
     // Destroy the enemy object itself
     Destroy(gameObject);
 }
 
+
+//  public void DestroyEnemy()
+// {
+//     // Instantiate the ghost at the enemy's position and rotation
+//     if (ghostPrefab != null)
+//     {
+//         GameObject ghost = Instantiate(ghostPrefab, transform.position, transform.rotation);
+
+       
+//         // Play the ghost's sound if there is an AudioSource attached
+//         AudioSource ghostAudio = ghost.GetComponent<AudioSource>();
+//         if (ghostAudio != null)
+//         {
+//             ghostAudio.Play();
+//         }
+//     }
+
+//         explosion.Play();
+//     // Destroy the enemy object itself
+//     Destroy(gameObject, 1f);
+// }
 
 }

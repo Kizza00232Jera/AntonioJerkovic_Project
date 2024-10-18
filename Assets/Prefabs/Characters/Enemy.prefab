@@ -1287,7 +1287,6 @@ GameObject:
   - component: {fileID: 3265086575212068512}
   - component: {fileID: 8768531182770331063}
   - component: {fileID: 8988176551783663546}
-  - component: {fileID: -7360054353590724427}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -1375,27 +1374,6 @@ MonoBehaviour:
   isRunningAway: 0
   rotationSpeed: 40
   ghostPrefab: {fileID: 5267381999035877047, guid: f4b77b5bcffa7a74ab95447b9bc0371a, type: 3}
---- !u!135 &-7360054353590724427
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7308073711324317319}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7550922367625996395
 GameObject:
   m_ObjectHideFlags: 0

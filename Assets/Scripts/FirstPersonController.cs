@@ -45,7 +45,7 @@ public class FirstPersonController : MonoBehaviour
         //cus isgrounded was not working properly whenever i start to move. 
 
         
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, characterController.height / 2 + 0.2f);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, characterController.height / 2 + 0.1f);
 
         if (isGrounded && velocity.y < 0)
         {

@@ -15,7 +15,7 @@ public class AnimationsController : MonoBehaviour
     public bool isIdle = true;
     public bool isJumping = false;
 
-    public bool isRunning = false;
+    // public bool isRunning = false;
     private SpawnManager spawnManager;
 
 
@@ -53,24 +53,24 @@ public class AnimationsController : MonoBehaviour
         {
             isWalkingForward = true;
             isIdle = false;
-            isRunning = false;
+            // isRunning = false;
         }
         else if (verticalInput > 0 && spawnManager.isPowerupActive)
         {
             isWalkingForward = false;
             isIdle = false;
-            isRunning = true;
+            // isRunning = true;
         }
         else {
             isWalkingForward = false;
             isIdle = true;
-            isRunning = false;
+            // isRunning = false;
         }
     }
 
     private void HandleJump()
     {
-        if (Input.GetButtonDown("Jump") && !characterController.isGrounded) // Check if on the ground
+        if (Input.GetButtonDown("Jump") && characterController.isGrounded) // Check if on the ground
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // Calculate jump velocity
             isJumping = true; // Set jumping state
@@ -90,7 +90,7 @@ public class AnimationsController : MonoBehaviour
         animator.SetBool("isWalkingForward", isWalkingForward);
         animator.SetBool("isIdle", isIdle);
         animator.SetBool("isJumping", isJumping);
-        animator.SetBool("isRunning", isRunning);
+        // animator.SetBool("isRunning", isRunning);
     }
 
  

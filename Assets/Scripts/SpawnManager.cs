@@ -111,6 +111,7 @@ Vector3 GetRandomPositionInArea(int areaIndex)
             // Show the timer text and start the countdown
             timerText.gameObject.SetActive(true); // Enable the timer text
             
+            
             StartCoroutine(PowerupTimer());
 
 
