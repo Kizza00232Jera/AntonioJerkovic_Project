@@ -19,8 +19,8 @@ public class SpawnManager : MonoBehaviour
     
     public Vector3[] spawnPositions;
 
-    private int coinsCollected = 0;
-    private int coinsNeeded = 4;
+    private int currentCoinCount = 0;
+    private int coinsNeededForPowerup  = 4;
 
      private List<Vector3[]> coinSpawnAreas = new List<Vector3[]>();
 
@@ -44,11 +44,10 @@ public class SpawnManager : MonoBehaviour
 
         SpawnCoins();
         SpawnEnemies();
-        SpawnPowerup();
         Instantiate(bossEnemyPrefab, transform.position + new Vector3(12,0,0), Quaternion.identity);
 
         timerText.gameObject.SetActive(false);
-        coinText.text = "Coins " + coinsCollected + "/" + coinsNeeded;
+        coinText.text = "Coins " + currentCoinCount + "/" + coinsNeededForPowerup ;
     }
 
 
@@ -66,7 +65,7 @@ public class SpawnManager : MonoBehaviour
   void SpawnCoins()
 {
     // Spawn one coin in each area
-    for (int i = 0; i < coinsNeeded; i++)
+    for (int i = 0; i < coinsNeededForPowerup ; i++)
     {
         Vector3 randomPosition = GetRandomPositionInArea(i);
         Instantiate(coinPrefab, randomPosition, Quaternion.identity);
@@ -91,14 +90,26 @@ Vector3 GetRandomPositionInArea(int areaIndex)
 
     public void CollectCoin() 
 {
-    coinsCollected++;
-    coinText.text = "Coins " + coinsCollected + "/" + coinsNeeded;
-    if (coinsCollected >= coinsNeeded) 
-    {
-        SpawnPowerup(); // Spawn powerup after all coins are collected
-    }
+    currentCoinCount++;
+    coinText.text = "Coins " + currentCoinCount + "/" + coinsNeededForPowerup ;
+     if (currentCoinCount >= coinsNeededForPowerup)
+        {
+            currentCoinCount = 0; // Reset the coin counter
+            SpawnPowerup(); // Spawn the powerup
+        }
 }
 
+public void OnPowerupCollected()
+    {
+        // Start the coroutine to respawn coins after a delay
+        StartCoroutine(RespawnCoinsAfterDelay(5f));
+    }
+
+    private IEnumerator RespawnCoinsAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SpawnCoins(); // Spawn new coins
+    }
  void SpawnPowerup() {
         Instantiate(powerupPrefab, new Vector3(74, 0.3f, 16), transform.rotation);
     }

@@ -142,7 +142,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void DestroyPlayer()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
 

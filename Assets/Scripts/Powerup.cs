@@ -10,7 +10,7 @@ public class Powerup : MonoBehaviour
  private void Start()
     {
         gameObject.GetComponent<Outline>().enabled = true;
-       spawnManager = FindObjectOfType<SpawnManager>();
+        spawnManager = FindObjectOfType<SpawnManager>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -19,6 +19,7 @@ public class Powerup : MonoBehaviour
         {
             //it will run activatepowerup and it will remove the powerup
             spawnManager.ActivatePowerup();
+            spawnManager.OnPowerupCollected();
              // Remove the powerup from the scene
             Destroy(gameObject);
         }
