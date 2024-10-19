@@ -11048,12 +11048,7 @@ MonoBehaviour:
   coinText: {fileID: 1036096567}
   gameOverText: {fileID: 943556246}
   restartButton: {fileID: 855414946}
-  enemies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  enemies: []
   isPowerupActive: 0
   spawnPositions: []
 --- !u!4 &487198971
@@ -17021,18 +17016,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 68762088}
-  - {fileID: 718996772}
-  - {fileID: 1895756948}
-  - {fileID: 2045952168}
-  - {fileID: 507909467}
-  - {fileID: 154826928}
-  - {fileID: 771006005}
-  - {fileID: 872056113}
-  - {fileID: 974499798}
-  - {fileID: 531069373}
-  - {fileID: 1199254887}
-  - {fileID: 1614625661}
-  - {fileID: 750856912}
   - {fileID: 1099112702}
   - {fileID: 1908071287}
   - {fileID: 1322277904}
@@ -17086,6 +17069,18 @@ Transform:
   - {fileID: 1592849568}
   - {fileID: 166232523}
   - {fileID: 506778030}
+  - {fileID: 718996772}
+  - {fileID: 1895756948}
+  - {fileID: 2045952168}
+  - {fileID: 507909467}
+  - {fileID: 154826928}
+  - {fileID: 771006005}
+  - {fileID: 872056113}
+  - {fileID: 974499798}
+  - {fileID: 531069373}
+  - {fileID: 1199254887}
+  - {fileID: 1614625661}
+  - {fileID: 750856912}
   m_Father: {fileID: 1923067953}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &813500275

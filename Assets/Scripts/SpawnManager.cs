@@ -12,82 +12,72 @@ public class SpawnManager : MonoBehaviour
     public GameObject powerupPrefab;
     public GameObject coinPrefab;
 
-       public TextMeshProUGUI timerText;
-       public TextMeshProUGUI coinText;
-       public TextMeshProUGUI gameOverText;
-       
+    public GameObject titleScreen;
+    public TextMeshProUGUI timerText;
+    public TextMeshProUGUI coinText;
+    public TextMeshProUGUI gameOverText;
+
     public Button restartButton;
     public List<Enemy> enemies = new List<Enemy>();
-     private float powerupDuration = 7f; // Duration of powerup
-    public bool isPowerupActive = false; 
-    
+    private float powerupDuration = 7f; // Duration of powerup
+    public bool isPowerupActive = false;
+
 
     
+
+
+
     public Vector3[] spawnPositions;
 
     private int currentCoinCount = 0;
-    private int coinsNeededForPowerup  = 4;
+    private int coinsNeededForPowerup = 4;
 
-     private List<Vector3[]> coinSpawnAreas = new List<Vector3[]>();
+    private List<Vector3[]> coinSpawnAreas = new List<Vector3[]>();
 
-     
+
     void Start()
     {
-       
-         // Define the four areas where coins will spawn
-        coinSpawnAreas.Add(new Vector3[] { new Vector3(0, 1, 21), new Vector3(70, 1, 21) });    // Area 1
-        coinSpawnAreas.Add(new Vector3[] { new Vector3(80, 1, 21), new Vector3(155, 1, 21) });  // Area 2
-        coinSpawnAreas.Add(new Vector3[] { new Vector3(75, 1, 27), new Vector3(71, 1, 90) });   // Area 3
-        coinSpawnAreas.Add(new Vector3[] { new Vector3(75, 1, 15), new Vector3(75, 1, -60) });  // Area 4
 
-        SpawnCoins();
-        SpawnEnemies(20);
-        Instantiate(bossEnemyPrefab, transform.position + new Vector3(12,0,0), Quaternion.identity);
 
-        timerText.gameObject.SetActive(false);
-        coinText.text = "Coins " + currentCoinCount + "/" + coinsNeededForPowerup ;
-
-        restartButton.onClick.AddListener(RestartGame);
     }
 
 
-    void SpawnEnemies(int numberOfEnemies)
-    {
-         for (int i = 0; i < numberOfEnemies; i++) // Assuming you want to spawn 5 enemies
+  public void SpawnEnemies(int numberOfEnemies)
+{
+    for (int i = 0; i < numberOfEnemies; i++) 
     {
         Vector3 randomPosition = GetRandomPositionForEnemy();
         GameObject enemyInstance = Instantiate(enemyPrefab, randomPosition, Quaternion.identity); // Spawn enemy at the random position
         enemies.Add(enemyInstance.GetComponent<Enemy>());
     }
-
-    }
+}
 
     Vector3 GetRandomPositionForEnemy()
-{
-    // Define the bounds for random position, adjust as needed
-    float randomX = Random.Range(-50, 50); // Random X position within -50 to 50
-    float randomY = 0;                     // Keep Y fixed (ground level)
-    float randomZ = Random.Range(-50, 50); // Random Z position within -50 to 50
-
-    Vector3 spawnManagerPosition = transform.position;
-
-    // Return the new position relative to the SpawnManager
-    return new Vector3(spawnManagerPosition.x + randomX, randomY, spawnManagerPosition.z + randomZ);
-}
-
-  void SpawnCoins()
-{
-    // Spawn one coin in each area
-    for (int i = 0; i < coinsNeededForPowerup ; i++)
     {
-        Vector3 randomPosition = GetRandomPositionInArea(i);
-        Instantiate(coinPrefab, randomPosition, Quaternion.identity);
+        // Define the bounds for random position, adjust as needed
+        float randomX = Random.Range(-50, 50); // Random X position within -50 to 50
+        float randomY = 0;                     // Keep Y fixed (ground level)
+        float randomZ = Random.Range(-50, 50); // Random Z position within -50 to 50
+
+        Vector3 spawnManagerPosition = transform.position;
+
+        // Return the new position relative to the SpawnManager
+        return new Vector3(spawnManagerPosition.x + randomX, randomY, spawnManagerPosition.z + randomZ);
     }
-}
 
-   
+    void SpawnCoins()
+    {
+        // Spawn one coin in each area
+        for (int i = 0; i < coinsNeededForPowerup; i++)
+        {
+            Vector3 randomPosition = GetRandomPositionInArea(i);
+            Instantiate(coinPrefab, randomPosition, Quaternion.identity);
+        }
+    }
 
-Vector3 GetRandomPositionInArea(int areaIndex)
+
+
+    Vector3 GetRandomPositionInArea(int areaIndex)
     {
         Vector3[] areaBounds = coinSpawnAreas[areaIndex];
         Vector3 min = areaBounds[0]; // Minimum point
@@ -101,18 +91,18 @@ Vector3 GetRandomPositionInArea(int areaIndex)
         return new Vector3(randomX, randomY, randomZ);
     }
 
-    public void CollectCoin() 
-{
-    currentCoinCount++;
-    coinText.text = "Coins " + currentCoinCount + "/" + coinsNeededForPowerup ;
-     if (currentCoinCount >= coinsNeededForPowerup)
+    public void CollectCoin()
+    {
+        currentCoinCount++;
+        coinText.text = "Coins " + currentCoinCount + "/" + coinsNeededForPowerup;
+        if (currentCoinCount >= coinsNeededForPowerup)
         {
             currentCoinCount = 0; // Reset the coin counter
             SpawnPowerup(); // Spawn the powerup
         }
-}
+    }
 
-public void OnPowerupCollected()
+    public void OnPowerupCollected()
     {
         // Start the coroutine to respawn coins after a delay
         StartCoroutine(RespawnCoinsAfterDelay(5f));
@@ -123,26 +113,27 @@ public void OnPowerupCollected()
         yield return new WaitForSeconds(delay);
         SpawnCoins(); // Spawn new coins
     }
- void SpawnPowerup() {
+    void SpawnPowerup()
+    {
         Instantiate(powerupPrefab, new Vector3(74, 0.3f, 16), transform.rotation);
     }
 
-     public void ActivatePowerup() 
+    public void ActivatePowerup()
     {
-       if (!isPowerupActive)
+        if (!isPowerupActive)
         {
             isPowerupActive = true;
 
             // Show the timer text and start the countdown
             timerText.gameObject.SetActive(true); // Enable the timer text
-            
-            
+
+
             StartCoroutine(PowerupTimer());
 
 
-      foreach (Enemy enemy in enemies) 
+            foreach (Enemy enemy in enemies)
             {
-                if (enemy != null) 
+                if (enemy != null)
                 {
                     enemy.isRunningAway = true; // Set enemies to run away
                 }
@@ -161,13 +152,13 @@ public void OnPowerupCollected()
         }
     }
 
-    private IEnumerator PowerupTimer() 
+    private IEnumerator PowerupTimer()
     {
         float timeRemaining = powerupDuration;
-        
-        while (timeRemaining > 0) 
+
+        while (timeRemaining > 0)
         {
-           timerText.text = Mathf.Ceil(timeRemaining).ToString(); // Show whole seconds
+            timerText.text = Mathf.Ceil(timeRemaining).ToString(); // Show whole seconds
             timeRemaining -= Time.deltaTime;
             yield return null; // Wait for the next frame
         }
@@ -178,9 +169,9 @@ public void OnPowerupCollected()
         timerText.gameObject.SetActive(false);
 
         // Reset all enemies' behavior
-        foreach (Enemy enemy in enemies) 
+        foreach (Enemy enemy in enemies)
         {
-            if (enemy != null) 
+            if (enemy != null)
             {
                 enemy.isRunningAway = false;
             }
@@ -197,12 +188,39 @@ public void OnPowerupCollected()
         }
     }
 
-    public void GameOver() {
-        gameOverText.gameObject.SetActive(true);
-        restartButton.gameObject.SetActive(true);
+    public void StartGame()
+    {
+        // Define the four areas where coins will spawn
+        coinSpawnAreas.Add(new Vector3[] { new Vector3(0, 1, 21), new Vector3(70, 1, 21) });    // Area 1
+        coinSpawnAreas.Add(new Vector3[] { new Vector3(80, 1, 21), new Vector3(155, 1, 21) });  // Area 2
+        coinSpawnAreas.Add(new Vector3[] { new Vector3(75, 1, 27), new Vector3(71, 1, 90) });   // Area 3
+        coinSpawnAreas.Add(new Vector3[] { new Vector3(75, 1, 15), new Vector3(75, 1, -60) });  // Area 4
+
+        SpawnCoins();
+        Instantiate(bossEnemyPrefab, transform.position + new Vector3(12, 0, 0), Quaternion.identity);
+
+        timerText.gameObject.SetActive(false);
+        coinText.text = "Coins " + currentCoinCount + "/" + coinsNeededForPowerup;
+
+        restartButton.onClick.AddListener(RestartGame);
+        titleScreen.gameObject.SetActive(false);
+
+        
+    // Lock the cursor to the center of the screen and hide it
+       Cursor.lockState = CursorLockMode.Locked;
+
     }
 
-    public void RestartGame() {
+    public void GameOver()
+    {
+        gameOverText.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(true);
+       Cursor.lockState = CursorLockMode.None;
+
+    }
+
+    public void RestartGame()
+    {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

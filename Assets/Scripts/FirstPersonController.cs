@@ -31,8 +31,6 @@ public class FirstPersonController : MonoBehaviour
         playerCamera = Camera.main;
         spawnManager = FindObjectOfType<SpawnManager>();
 
-        // Lock the cursor to the center of the screen and hide it
-       // Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
