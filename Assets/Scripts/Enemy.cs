@@ -167,11 +167,6 @@ public void areAllEnemiesDestroyed()
         characterController.Move(direction.normalized * speed * Time.deltaTime);
     }
 
-
-
-
-
-
     void ChasePlayer()
     {
         // Move towards the player's position using CharacterController
@@ -216,27 +211,5 @@ public void areAllEnemiesDestroyed()
 }
 
 
-
-
-//  public void DestroyEnemy()
-// {
-//     // Instantiate the ghost at the enemy's position and rotation
-//     if (ghostPrefab != null)
-//     {
-//         GameObject ghost = Instantiate(ghostPrefab, transform.position, transform.rotation);
-
-       
-//         // Play the ghost's sound if there is an AudioSource attached
-//         AudioSource ghostAudio = ghost.GetComponent<AudioSource>();
-//         if (ghostAudio != null)
-//         {
-//             ghostAudio.Play();
-//         }
-//     }
-
-//         explosion.Play();
-//     // Destroy the enemy object itself
-//     Destroy(gameObject, 1f);
-// }
 
 }

@@ -95,33 +95,32 @@ public class FirstPersonController : MonoBehaviour
         playerCamera.transform.localRotation = Quaternion.Euler(rotX, 0f, 0f);
     }
 
-    void OnControllerColliderHit(ControllerColliderHit hit)
+void OnTriggerEnter(Collider other)
+{
+    if (other.CompareTag("Enemy"))
     {
-        if (hit.gameObject.CompareTag("Enemy"))
+        Debug.Log("Collided with enemy");
+
+        // Get the enemy script
+        Enemy enemy = other.GetComponent<Enemy>();
+
+        if (!enemy.isRunningAway)
         {
-
-            Debug.Log("Collided with enemy");
-
-            // Get the enemy script
-            Enemy enemy = hit.gameObject.GetComponent<Enemy>();
-
-            if (!enemy.isRunningAway)
-            {
-                DestroyPlayer(); // Trigger enemy destruction and particle effect
-                spawnManager.GameOver();
-            }
-            else
-            {
-                enemy.DestroyEnemy();
-            }
+            DestroyPlayer(); // Trigger enemy destruction and particle effect
+            spawnManager.GameOver();
         }
+        else
+        {
+            enemy.DestroyEnemy();
+        }
+    }
 
-         if (hit.gameObject.CompareTag("BossEnemy"))
+    if (other.CompareTag("BossEnemy"))
     {
         Debug.Log("Collided with Boss");
 
         // Get the BossEnemy component
-        Enemy bossEnemy = hit.gameObject.GetComponent<Enemy>();
+        Enemy bossEnemy = other.GetComponent<Enemy>();
 
         // Ensure the boss enemy is not null
         if (bossEnemy != null)
@@ -137,9 +136,8 @@ public class FirstPersonController : MonoBehaviour
                 spawnManager.GameOver();
             }
         }
-     }
     }
-
+}
     private void DestroyPlayer()
     {
         Time.timeScale = 0;
