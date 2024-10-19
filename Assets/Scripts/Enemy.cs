@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
 
-     
+    
 
 
         animator = GetComponent<Animator>();

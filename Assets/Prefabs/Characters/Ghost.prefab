@@ -145,6 +145,7 @@ MonoBehaviour:
   isRunningAway: 0
   rotationSpeed: 40
   ghostPrefab: {fileID: 0}
+  allEnemiesDestroyed: 0
 --- !u!82 &4642390135367418058
 AudioSource:
   m_ObjectHideFlags: 0

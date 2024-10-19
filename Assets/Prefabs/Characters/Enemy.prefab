@@ -1288,6 +1288,7 @@ GameObject:
   - component: {fileID: 8768531182770331063}
   - component: {fileID: 8988176551783663546}
   - component: {fileID: -4590657437284767808}
+  - component: {fileID: 1577035225698036747}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -1395,8 +1396,26 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.78, z: 0}
+  m_Size: {x: 1.2355871, y: 1, z: 1}
+  m_Center: {x: 0.00000047683716, y: 0.78, z: 0}
+--- !u!114 &1577035225698036747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7308073711324317319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7550922367625996395
 GameObject:
   m_ObjectHideFlags: 0
@@ -1697,6 +1716,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1356131835237146417}
     m_Modifications:
+    - target: {fileID: 675088291108911358, guid: 568900de41fc3c6439f6a95cff422d4d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d06b159dba9d8d4b89a380ed0742f8b, type: 2}
     - target: {fileID: 1634733982287315035, guid: 568900de41fc3c6439f6a95cff422d4d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
