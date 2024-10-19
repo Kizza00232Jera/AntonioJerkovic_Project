@@ -200,6 +200,8 @@ public class SpawnManager : MonoBehaviour
         Instantiate(bossEnemyPrefab, transform.position + new Vector3(12, 0, 0), Quaternion.identity);
 
         timerText.gameObject.SetActive(false);
+        coinText.gameObject.SetActive(true);
+
         coinText.text = "Coins " + currentCoinCount + "/" + coinsNeededForPowerup;
 
         restartButton.onClick.AddListener(RestartGame);
