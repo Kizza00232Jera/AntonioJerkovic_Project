@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class FirstPersonController : MonoBehaviour
 {
-    public float moveSpeed = 15f;
+    private float moveSpeed = 5f;
+    private float speedMultiplier = 2f; 
+    private float currentSpeed;
     private float lookSensitivity = 2f;   // mouse sensetivity
     private float gravity = -9.81f;       // gracity cus player doesn't have rigid body but charcontroller
     public float jumpHeight = 2f;
@@ -25,8 +27,8 @@ public class FirstPersonController : MonoBehaviour
 
     public AudioClip jumpSound; 
     public AudioSource audioSource;
-    
-
+     public GameObject fireEffect; // Drag the fire particle GameObject in the Inspector
+private Animator animator;
 
     void Start()
     {
@@ -34,8 +36,10 @@ public class FirstPersonController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         playerCamera = Camera.main;
         spawnManager = FindObjectOfType<SpawnManager>();
-         audioSource = GetComponent<AudioSource>();
-
+        audioSource = GetComponent<AudioSource>();
+        fireEffect.SetActive(false);
+        currentSpeed = moveSpeed;
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -43,6 +47,21 @@ public class FirstPersonController : MonoBehaviour
         //handle moving (wasd) and camera(mouse)
         Move();
         CameraLook();
+
+         if (spawnManager.isPowerupActive)
+        {
+            // Enable the fire particle effect
+            fireEffect.SetActive(true);
+            currentSpeed = moveSpeed * speedMultiplier;
+            animator.speed = 2.0f;
+        }
+        else
+        {
+            // Disable the fire particle effect
+            fireEffect.SetActive(false);
+            currentSpeed = moveSpeed;
+            animator.speed = 1.0f;
+        }
     }
 
 
@@ -66,7 +85,7 @@ public class FirstPersonController : MonoBehaviour
 
         // Move the player relative to their local direction (transform)
         Vector3 moveDirection = transform.right * moveForward + transform.forward * rotatePlayer;
-        characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
+        characterController.Move(moveDirection * currentSpeed * Time.deltaTime);
 
         // Handle jumping
         if (Input.GetButtonDown("Jump") && isGrounded)

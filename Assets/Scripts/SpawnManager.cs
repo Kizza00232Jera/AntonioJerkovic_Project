@@ -203,12 +203,13 @@ public class SpawnManager : MonoBehaviour
         SpawnCoins();
         Instantiate(bossEnemyPrefab, transform.position + new Vector3(12, 0, 0), Quaternion.identity);
 
-        timerText.gameObject.SetActive(false);
+        timerText.gameObject.SetActive(true);
         coinText.gameObject.SetActive(true);
         killCountText.gameObject.SetActive(true);
 
         coinText.text = "Coins " + currentCoinCount + "/" + coinsNeededForPowerup;
         killCountText.text = "Enemies Killed " + enemiesKilled;
+        timerText.text = "Be careful";
 
         restartButton.onClick.AddListener(RestartGame);
         titleScreen.gameObject.SetActive(false);

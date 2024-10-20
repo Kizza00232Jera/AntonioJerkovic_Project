@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 public class Enemy : MonoBehaviour
 {
-    public float speed = 3f;                //make enemy slower than player probably
+    private float speed = 4f;                //make enemy slower than player probably
     private Transform player;                 // Transform stores a GameObjects Position, Rotation, Scale
     public bool isRunningAway = false;        // Enemy state, it can run towards you or from u
     private CharacterController characterController;

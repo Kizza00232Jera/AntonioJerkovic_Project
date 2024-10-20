@@ -64,6 +64,7 @@ public class AnimationsController : MonoBehaviour
         else {
             isWalkingForward = false;
             isIdle = true;
+            
             // isRunning = false;
         }
     }
