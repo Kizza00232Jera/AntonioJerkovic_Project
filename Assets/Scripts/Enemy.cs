@@ -5,6 +5,7 @@ using TMPro;
 public class Enemy : MonoBehaviour
 {
     public float moveSpeed;                //make enemy slower than player probably
+    public float ghostSpeed = 3f;             
     private Transform player;                 // Transform stores a GameObjects Position, Rotation, Scale
     public bool isRunningAway = false;        // Enemy state, it can run towards you or from u
     private CharacterController characterController;

@@ -36,7 +36,7 @@ public class SpawnManager : MonoBehaviour
     public List<Enemy> enemies = new List<Enemy>();
 
 
-    private float powerupDuration = 7f; // Duration of powerup
+    private float powerupDuration = 15f; // Duration of powerup
     public bool isPowerupActive = false;
 
     public float bossEnemySpeed;

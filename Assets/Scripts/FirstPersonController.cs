@@ -9,7 +9,7 @@ public class FirstPersonController : MonoBehaviour
     private float currentSpeed;
     public float lookSensitivity;   // mouse sensetivity
     private float gravity = -9.81f;       // gracity cus player doesn't have rigid body but charcontroller
-    public float jumpHeight = 2f;
+    public float jumpHeight = 4f;
 
 
     private float maxLookX = 45f;
@@ -27,7 +27,7 @@ public class FirstPersonController : MonoBehaviour
 
     public AudioClip jumpSound; 
     public AudioSource audioSource;
-     public GameObject fireEffect; // Drag the fire particle GameObject in the Inspector
+     public GameObject fireEffect; 
 private Animator animator;
 
     void Start()
