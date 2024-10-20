@@ -120,6 +120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnManager: {fileID: 0}
+  enemy: {fileID: 0}
+  lastItemPrefab: {fileID: 5269338277019152390, guid: a9704ad76afd3c24eab5dbf01b77bef0, type: 3}
 --- !u!114 &-1494697454708532140
 MonoBehaviour:
   m_ObjectHideFlags: 0

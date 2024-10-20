@@ -19,6 +19,8 @@ public class SpawnManager : MonoBehaviour
 
     public Button restartButton;
     public List<Enemy> enemies = new List<Enemy>();
+
+    
     private float powerupDuration = 7f; // Duration of powerup
     public bool isPowerupActive = false;
 

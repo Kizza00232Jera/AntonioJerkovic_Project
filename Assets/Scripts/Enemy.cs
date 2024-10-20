@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
 
+        gameObject.GetComponent<Outline>().enabled = false;
     
 
 
@@ -55,10 +56,13 @@ public class Enemy : MonoBehaviour
         if (isRunningAway)
         {
             RunAwayFromPlayer();
+        gameObject.GetComponent<Outline>().enabled = true;
         }
         else
         {
             ChasePlayer();
+        gameObject.GetComponent<Outline>().enabled = false;
+
         }
     }
     else if (gameObject.CompareTag("BossEnemy"))
@@ -72,9 +76,12 @@ public class Enemy : MonoBehaviour
         else if (allEnemiesDestroyed && isRunningAway)
         {
             RunAwayFromPlayer();
+        //gameObject.GetComponent<Outline>().enabled = true;
         }
         else if (allEnemiesDestroyed && !isRunningAway) {
             ChasePlayer();
+        //gameObject.GetComponent<Outline>().enabled = true;
+
         }
     }
     else if (gameObject.CompareTag("Ghost"))
