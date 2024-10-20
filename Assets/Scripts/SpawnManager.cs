@@ -16,7 +16,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject gameOverScreen;
 
     public GameObject playScreen;
-    
+
 
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI coinText;
@@ -29,14 +29,17 @@ public class SpawnManager : MonoBehaviour
 
     public TextMeshProUGUI gameOverText;
     public Button restartButton;
+
+
     public List<Enemy> enemies = new List<Enemy>();
 
-    
+
     private float powerupDuration = 7f; // Duration of powerup
     public bool isPowerupActive = false;
 
+public float bossEnemySpeed;
 
-    
+
 
 
 
@@ -54,15 +57,19 @@ public class SpawnManager : MonoBehaviour
     }
 
 
-  public void SpawnEnemies(int numberOfEnemies)
-{
-    for (int i = 0; i < numberOfEnemies; i++) 
+    public void SpawnEnemies(int numberOfEnemies, float enemySpeed)
     {
-        Vector3 randomPosition = GetRandomPositionForEnemy();
-        GameObject enemyInstance = Instantiate(enemyPrefab, randomPosition, Quaternion.identity); // Spawn enemy at the random position
-        enemies.Add(enemyInstance.GetComponent<Enemy>());
+        for (int i = 0; i < numberOfEnemies; i++)
+        {
+            Vector3 randomPosition = GetRandomPositionForEnemy();
+            GameObject enemyInstance = Instantiate(enemyPrefab, randomPosition, Quaternion.identity);
+            Enemy enemy = enemyInstance.GetComponent<Enemy>();
+            {
+                enemy.moveSpeed = enemySpeed; // Set the speed of the enemy
+                enemies.Add(enemy);
+            }
+        }
     }
-}
 
     Vector3 GetRandomPositionForEnemy()
     {
@@ -210,6 +217,11 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    public void SetBossEnemySpeed(float speed)
+    {
+        bossEnemySpeed = speed;
+    }
+
     public void StartGame()
     {
         // Define the four areas where coins will spawn
@@ -219,7 +231,12 @@ public class SpawnManager : MonoBehaviour
         coinSpawnAreas.Add(new Vector3[] { new Vector3(75, 1, 15), new Vector3(75, 1, -60) });  // Area 4
 
         SpawnCoins();
-        Instantiate(bossEnemyPrefab, transform.position + new Vector3(12, 0, 0), Quaternion.identity);
+        
+
+        GameObject bossEnemyInstance = Instantiate(bossEnemyPrefab, transform.position + new Vector3(12, 0, 0), Quaternion.identity);
+        Enemy bossEnemy = bossEnemyInstance.GetComponent<Enemy>();
+        bossEnemy.moveSpeed = bossEnemySpeed; // Set the speed of the boss enemy
+
 
         playScreen.gameObject.SetActive(true);
         CountEnemies();
@@ -232,9 +249,9 @@ public class SpawnManager : MonoBehaviour
         titleScreen.gameObject.SetActive(false);
 
 
-        
-    // Lock the cursor to the center of the screen and hide it
-       Cursor.lockState = CursorLockMode.Locked;
+
+        // Lock the cursor to the center of the screen and hide it
+        Cursor.lockState = CursorLockMode.Locked;
 
 
     }
@@ -242,12 +259,13 @@ public class SpawnManager : MonoBehaviour
     public void GameOver()
     {
         gameOverScreen.gameObject.SetActive(true);
-        playScreen.gameObject.SetActive(false); 
+        playScreen.gameObject.SetActive(false);
         enemyResultText.text = "Enemies killed " + enemiesKilled;
         Cursor.lockState = CursorLockMode.None;
     }
 
-   public void  EnemyKilled() {
+    public void EnemyKilled()
+    {
         enemiesKilled++;
         UpdateKillCountUI();
         UpdateEnemiesRemaining();
@@ -262,9 +280,9 @@ public class SpawnManager : MonoBehaviour
     }
 
 
-       void UpdateKillCountUI()
+    void UpdateKillCountUI()
     {
-       killCountText.text = "Enemies Killed: " + enemiesKilled;
+        killCountText.text = "Enemies Killed: " + enemiesKilled;
     }
 
     public void RestartGame()

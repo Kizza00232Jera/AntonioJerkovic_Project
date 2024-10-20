@@ -9,7 +9,11 @@ public class DifficultyButton : MonoBehaviour
     private SpawnManager spawnManager;
 
     public int spawnEnemy;
-    // Start is called before the first frame update
+    public float enemySpeed; 
+    public float selectedBossSpeed;
+
+
+
     void Start()
     {
         button = GetComponent<Button>();
@@ -17,17 +21,16 @@ public class DifficultyButton : MonoBehaviour
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void SetDifficulty()
     {
-        
-    }
-
-    void SetDifficulty() {
         Debug.Log(gameObject.name + " was clicked");
-    spawnManager.SpawnEnemies(spawnEnemy); 
-    spawnManager.StartGame();
-    }
+        
+        // Set the enemy speed based on the button clicked
+        //spawnManager.SetEnemySpeed(enemySpeed);
 
-    
+        // Spawn enemies and start the game
+        spawnManager.SpawnEnemies(spawnEnemy, enemySpeed);
+        spawnManager.SetBossEnemySpeed(selectedBossSpeed);
+        spawnManager.StartGame();
+    }
 }

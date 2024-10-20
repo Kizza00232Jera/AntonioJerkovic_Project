@@ -4736,7 +4736,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b57b15ad0cc8c42aa420bc75ecd98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnEnemy: 11
+  spawnEnemy: 8
+  enemySpeed: 5
+  selectedBossSpeed: 5
 --- !u!114 &186218144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11601,6 +11603,7 @@ MonoBehaviour:
   restartButton: {fileID: 855414946}
   enemies: []
   isPowerupActive: 0
+  bossEnemySpeed: 0
   spawnPositions: []
 --- !u!4 &487198971
 Transform:
@@ -14341,7 +14344,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b57b15ad0cc8c42aa420bc75ecd98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnEnemy: 22
+  spawnEnemy: 10
+  enemySpeed: 6
+  selectedBossSpeed: 6
 --- !u!114 &617368006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24027,7 +24032,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b57b15ad0cc8c42aa420bc75ecd98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnEnemy: 6
+  spawnEnemy: 5
+  enemySpeed: 3.5
+  selectedBossSpeed: 3.5
 --- !u!114 &1042426026
 MonoBehaviour:
   m_ObjectHideFlags: 0
