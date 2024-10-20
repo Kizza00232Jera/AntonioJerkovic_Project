@@ -109,7 +109,7 @@ public class Enemy : MonoBehaviour
         // If no enemies are found, return true
         if (enemies.Length == 0)
         {
-            Debug.Log("All enemies destroyed");
+         //   Debug.Log("All enemies destroyed");
             allEnemiesDestroyed = true;
         }
 

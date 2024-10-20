@@ -129,7 +129,7 @@ void OnTriggerEnter(Collider other)
 {
     if (other.CompareTag("Enemy"))
     {
-        Debug.Log("Collided with enemy");
+       // Debug.Log("Collided with enemy");
 
         // Get the enemy script
         Enemy enemy = other.GetComponent<Enemy>();
@@ -147,7 +147,7 @@ void OnTriggerEnter(Collider other)
 
     if (other.CompareTag("BossEnemy"))
     {
-        Debug.Log("Collided with Boss");
+      //  Debug.Log("Collided with Boss");
 
         // Get the BossEnemy component
         Enemy bossEnemy = other.GetComponent<Enemy>();

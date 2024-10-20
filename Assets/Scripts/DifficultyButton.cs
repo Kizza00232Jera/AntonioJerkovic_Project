@@ -23,7 +23,7 @@ public class DifficultyButton : MonoBehaviour
 
     void SetDifficulty()
     {
-        Debug.Log(gameObject.name + " was clicked");
+       // Debug.Log(gameObject.name + " was clicked");
         
         // Set the enemy speed based on the button clicked
         //spawnManager.SetEnemySpeed(enemySpeed);
