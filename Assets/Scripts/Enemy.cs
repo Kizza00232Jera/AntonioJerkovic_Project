@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour
     public GameObject ghostPrefab;
 
     public bool allEnemiesDestroyed = false;
+
+    public SpawnManager spawnManager;
   
 
     void Start()
@@ -30,6 +32,7 @@ public class Enemy : MonoBehaviour
         // Getting players 'Transform' info
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
+        spawnManager = FindObjectOfType<SpawnManager>();
 
     
 
@@ -209,6 +212,8 @@ public void areAllEnemiesDestroyed()
         {
             ghostAudio.Play();
         }
+
+        spawnManager.EnemyKilled();
     }
 
         

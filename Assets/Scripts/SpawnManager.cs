@@ -16,6 +16,8 @@ public class SpawnManager : MonoBehaviour
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI coinText;
     public TextMeshProUGUI gameOverText;
+    public int enemiesKilled = 0;
+    public TextMeshProUGUI killCountText;
 
     public Button restartButton;
     public List<Enemy> enemies = new List<Enemy>();
@@ -160,7 +162,7 @@ public class SpawnManager : MonoBehaviour
 
         while (timeRemaining > 0)
         {
-            timerText.text = Mathf.Ceil(timeRemaining).ToString(); // Show whole seconds
+            timerText.text = "Time Remaining " + Mathf.Ceil(timeRemaining).ToString(); // Show whole seconds
             timeRemaining -= Time.deltaTime;
             yield return null; // Wait for the next frame
         }
@@ -203,8 +205,10 @@ public class SpawnManager : MonoBehaviour
 
         timerText.gameObject.SetActive(false);
         coinText.gameObject.SetActive(true);
+        killCountText.gameObject.SetActive(true);
 
         coinText.text = "Coins " + currentCoinCount + "/" + coinsNeededForPowerup;
+        killCountText.text = "Enemies Killed " + enemiesKilled;
 
         restartButton.onClick.AddListener(RestartGame);
         titleScreen.gameObject.SetActive(false);
@@ -213,14 +217,27 @@ public class SpawnManager : MonoBehaviour
     // Lock the cursor to the center of the screen and hide it
        Cursor.lockState = CursorLockMode.Locked;
 
+
     }
 
     public void GameOver()
     {
         gameOverText.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
+        
        Cursor.lockState = CursorLockMode.None;
 
+    }
+
+   public void  EnemyKilled() {
+        Debug.Log("Enemy killed 0");
+        UpdateKillCountUI();
+         enemiesKilled++;
+    }
+
+       void UpdateKillCountUI()
+    {
+       killCountText.text = "Enemies Killed: " + enemiesKilled;
     }
 
     public void RestartGame()
