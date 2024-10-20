@@ -13,12 +13,21 @@ public class SpawnManager : MonoBehaviour
     public GameObject coinPrefab;
 
     public GameObject titleScreen;
+    public GameObject gameOverScreen;
+
+    public GameObject playScreen;
+    
+
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI coinText;
-    public TextMeshProUGUI gameOverText;
-    public int enemiesKilled = 0;
+    public TextMeshProUGUI enemyResultText;
+    public TextMeshProUGUI remainingEnemyResultText;
+    private int enemiesKilled = 0;
+    private int totalEnemies = 0;
     public TextMeshProUGUI killCountText;
+    public TextMeshProUGUI enemiesRemainingText;
 
+    public TextMeshProUGUI gameOverText;
     public Button restartButton;
     public List<Enemy> enemies = new List<Enemy>();
 
@@ -41,7 +50,6 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
-
 
     }
 
@@ -67,6 +75,16 @@ public class SpawnManager : MonoBehaviour
 
         // Return the new position relative to the SpawnManager
         return new Vector3(spawnManagerPosition.x + randomX, randomY, spawnManagerPosition.z + randomZ);
+    }
+
+    void CountEnemies()
+    {
+        // Find all enemies and count them
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] bossEnemies = GameObject.FindGameObjectsWithTag("BossEnemy");
+
+        totalEnemies = enemies.Length + bossEnemies.Length;
+        UpdateEnemiesRemaining();
     }
 
     void SpawnCoins()
@@ -203,9 +221,8 @@ public class SpawnManager : MonoBehaviour
         SpawnCoins();
         Instantiate(bossEnemyPrefab, transform.position + new Vector3(12, 0, 0), Quaternion.identity);
 
-        timerText.gameObject.SetActive(true);
-        coinText.gameObject.SetActive(true);
-        killCountText.gameObject.SetActive(true);
+        playScreen.gameObject.SetActive(true);
+        CountEnemies();
 
         coinText.text = "Coins " + currentCoinCount + "/" + coinsNeededForPowerup;
         killCountText.text = "Enemies Killed " + enemiesKilled;
@@ -213,6 +230,7 @@ public class SpawnManager : MonoBehaviour
 
         restartButton.onClick.AddListener(RestartGame);
         titleScreen.gameObject.SetActive(false);
+
 
         
     // Lock the cursor to the center of the screen and hide it
@@ -223,18 +241,26 @@ public class SpawnManager : MonoBehaviour
 
     public void GameOver()
     {
-        gameOverText.gameObject.SetActive(true);
-        restartButton.gameObject.SetActive(true);
-        
-       Cursor.lockState = CursorLockMode.None;
-
+        gameOverScreen.gameObject.SetActive(true);
+        playScreen.gameObject.SetActive(false); 
+        enemyResultText.text = "Enemies killed " + enemiesKilled;
+        Cursor.lockState = CursorLockMode.None;
     }
 
    public void  EnemyKilled() {
-        Debug.Log("Enemy killed 0");
+        enemiesKilled++;
         UpdateKillCountUI();
-         enemiesKilled++;
+        UpdateEnemiesRemaining();
     }
+
+    void UpdateEnemiesRemaining()
+    {
+        int currentRemainingEnemies = totalEnemies - enemiesKilled;
+        enemiesRemainingText.text = "Enemies remaining: " + currentRemainingEnemies;
+        remainingEnemyResultText.text = "Enemies remaining " + currentRemainingEnemies;
+
+    }
+
 
        void UpdateKillCountUI()
     {

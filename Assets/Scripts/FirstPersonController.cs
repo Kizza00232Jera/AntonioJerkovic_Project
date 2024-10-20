@@ -7,7 +7,7 @@ public class FirstPersonController : MonoBehaviour
     private float moveSpeed = 5f;
     private float speedMultiplier = 2f; 
     private float currentSpeed;
-    private float lookSensitivity = 2f;   // mouse sensetivity
+    public float lookSensitivity;   // mouse sensetivity
     private float gravity = -9.81f;       // gracity cus player doesn't have rigid body but charcontroller
     public float jumpHeight = 2f;
 
@@ -40,6 +40,7 @@ private Animator animator;
         fireEffect.SetActive(false);
         currentSpeed = moveSpeed;
         animator = GetComponent<Animator>();
+        lookSensitivity = PlayerPrefs.GetFloat("MouseSensitivity", 2f);
     }
 
     void Update()
@@ -120,6 +121,10 @@ private Animator animator;
         playerCamera.transform.localRotation = Quaternion.Euler(rotX, 0f, 0f);
     }
 
+public void SetLookSensitivity(float sensitivity)
+{
+    lookSensitivity = sensitivity; // Update the look sensitivity
+}
 void OnTriggerEnter(Collider other)
 {
     if (other.CompareTag("Enemy"))
