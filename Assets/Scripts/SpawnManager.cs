@@ -26,6 +26,8 @@ public class SpawnManager : MonoBehaviour
     private int totalEnemies = 0;
     public TextMeshProUGUI killCountText;
     public TextMeshProUGUI enemiesRemainingText;
+    public GameObject gameCompletedScreen;
+
 
     public TextMeshProUGUI gameOverText;
     public Button restartButton;
@@ -37,7 +39,7 @@ public class SpawnManager : MonoBehaviour
     private float powerupDuration = 7f; // Duration of powerup
     public bool isPowerupActive = false;
 
-public float bossEnemySpeed;
+    public float bossEnemySpeed;
 
 
 
@@ -69,6 +71,7 @@ public float bossEnemySpeed;
                 enemies.Add(enemy);
             }
         }
+        totalEnemies += numberOfEnemies;
     }
 
     Vector3 GetRandomPositionForEnemy()
@@ -181,6 +184,23 @@ public float bossEnemySpeed;
         }
     }
 
+    public void CheckForBossEnemies()
+    {
+        // Find all active BossEnemies
+        GameObject[] bossEnemies = GameObject.FindGameObjectsWithTag("BossEnemy");
+
+        // If there are no boss enemies, activate the game completed screen
+        if (bossEnemies.Length == 0)
+        {
+            ShowGameCompletedUI();
+        }
+    }
+
+    private void ShowGameCompletedUI()
+    {
+        gameCompletedScreen.SetActive(true); // Show the game completed screen
+    }
+
     private IEnumerator PowerupTimer()
     {
         float timeRemaining = powerupDuration;
@@ -231,7 +251,7 @@ public float bossEnemySpeed;
         coinSpawnAreas.Add(new Vector3[] { new Vector3(75, 1, 15), new Vector3(75, 1, -60) });  // Area 4
 
         SpawnCoins();
-        
+
 
         GameObject bossEnemyInstance = Instantiate(bossEnemyPrefab, transform.position + new Vector3(12, 0, 0), Quaternion.identity);
         Enemy bossEnemy = bossEnemyInstance.GetComponent<Enemy>();
@@ -247,6 +267,7 @@ public float bossEnemySpeed;
 
         restartButton.onClick.AddListener(RestartGame);
         titleScreen.gameObject.SetActive(false);
+        gameCompletedScreen.gameObject.SetActive(false);
 
 
 
@@ -269,6 +290,11 @@ public float bossEnemySpeed;
         enemiesKilled++;
         UpdateKillCountUI();
         UpdateEnemiesRemaining();
+        if (totalEnemies <= 0)
+        {
+            ShowGameCompletedUI();
+        }
+
     }
 
     void UpdateEnemiesRemaining()
