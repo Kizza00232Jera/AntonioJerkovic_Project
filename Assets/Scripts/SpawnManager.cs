@@ -16,7 +16,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject gameOverScreen;
 
     public GameObject playScreen;
-
+public GameObject completedGameScreen;
 
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI coinText;
@@ -26,7 +26,6 @@ public class SpawnManager : MonoBehaviour
     private int totalEnemies = 0;
     public TextMeshProUGUI killCountText;
     public TextMeshProUGUI enemiesRemainingText;
-    public GameObject gameCompletedScreen;
 
 
     public TextMeshProUGUI gameOverText;
@@ -55,7 +54,7 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
-
+        CountEnemies();
     }
 
 
@@ -184,22 +183,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public void CheckForBossEnemies()
-    {
-        // Find all active BossEnemies
-        GameObject[] bossEnemies = GameObject.FindGameObjectsWithTag("BossEnemy");
 
-        // If there are no boss enemies, activate the game completed screen
-        if (bossEnemies.Length == 0)
-        {
-            ShowGameCompletedUI();
-        }
-    }
-
-    private void ShowGameCompletedUI()
-    {
-        gameCompletedScreen.SetActive(true); // Show the game completed screen
-    }
 
     private IEnumerator PowerupTimer()
     {
@@ -257,6 +241,7 @@ public class SpawnManager : MonoBehaviour
         Enemy bossEnemy = bossEnemyInstance.GetComponent<Enemy>();
         bossEnemy.moveSpeed = bossEnemySpeed; // Set the speed of the boss enemy
 
+        totalEnemies++;
 
         playScreen.gameObject.SetActive(true);
         CountEnemies();
@@ -267,7 +252,6 @@ public class SpawnManager : MonoBehaviour
 
         restartButton.onClick.AddListener(RestartGame);
         titleScreen.gameObject.SetActive(false);
-        gameCompletedScreen.gameObject.SetActive(false);
 
 
 
@@ -285,16 +269,24 @@ public class SpawnManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
+    public void CompleteGame()
+{
+    // Activate the Completed game screen
+    if (completedGameScreen != null)
+    {
+        completedGameScreen.SetActive(true);
+
+        // Optionally stop time or freeze the game
+        Time.timeScale = 0;
+    }
+}
+
     public void EnemyKilled()
     {
         enemiesKilled++;
         UpdateKillCountUI();
         UpdateEnemiesRemaining();
-        if (totalEnemies <= 0)
-        {
-            ShowGameCompletedUI();
-        }
-
+        
     }
 
     void UpdateEnemiesRemaining()

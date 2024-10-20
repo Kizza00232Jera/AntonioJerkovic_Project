@@ -9,7 +9,7 @@ public class FirstPersonController : MonoBehaviour
     private float currentSpeed;
     public float lookSensitivity;   // mouse sensetivity
     private float gravity = -9.81f;       // gracity cus player doesn't have rigid body but charcontroller
-    public float jumpHeight = 4f;
+    public float jumpHeight = 7f;
 
 
     private float maxLookX = 45f;

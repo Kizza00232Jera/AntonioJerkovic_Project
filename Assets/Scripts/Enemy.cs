@@ -22,8 +22,9 @@ public class Enemy : MonoBehaviour
     public GameObject ghostPrefab;
 
     public bool allEnemiesDestroyed = false;
+    public bool allEnemiesAndBossAreDestroyed = false;
 
-    public SpawnManager spawnManager;
+    private SpawnManager spawnManager;
 
 
     void Start()
@@ -48,6 +49,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         areAllEnemiesDestroyed();
+        allEnemiesAndBossDestroyed();
 
         // Check if the object is tagged as an enemy, boss, or ghost
         if (gameObject.CompareTag("Enemy"))
@@ -91,6 +93,11 @@ public class Enemy : MonoBehaviour
             RunAwayFromPlayer();
         }
 
+         if (allEnemiesAndBossAreDestroyed)
+    {
+       spawnManager.CompleteGame();
+    }
+
     }
 
     // Helper functions:
@@ -107,6 +114,23 @@ public class Enemy : MonoBehaviour
         }
 
     }
+
+    public void allEnemiesAndBossDestroyed()
+{
+    // Find all active GameObjects with the "Enemy" tag
+    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+    // Find all active GameObjects with the "BossEnemy" tag
+    GameObject[] bossEnemies = GameObject.FindGameObjectsWithTag("BossEnemy");
+
+    // If no enemies and no boss enemies are found, set allEnemiesDestroyed to true
+    if (enemies.Length == 0 && bossEnemies.Length == 0)
+    {
+        allEnemiesAndBossAreDestroyed = true;
+    }
+}
+
+
 
 
 

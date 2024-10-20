@@ -766,6 +766,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HouseXS (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7307467530688704703, guid: c3b880b0eeddd2e4680483ed86ddcc28, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fa8ca4623361c3449a292af75c629709, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6843,7 +6847,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -237.8, y: 62.81}
+  m_AnchoredPosition: {x: -237.8, y: 82.8}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &285236776
@@ -11593,13 +11597,13 @@ MonoBehaviour:
   titleScreen: {fileID: 1894225614}
   gameOverScreen: {fileID: 830057953}
   playScreen: {fileID: 1354439479}
+  completedGameScreen: {fileID: 1063506867}
   timerText: {fileID: 1325675603}
   coinText: {fileID: 1036096567}
   enemyResultText: {fileID: 561895643}
   remainingEnemyResultText: {fileID: 1203250067}
   killCountText: {fileID: 1920314308}
   enemiesRemainingText: {fileID: 285236776}
-  gameCompletedScreen: {fileID: 1063506867}
   gameOverText: {fileID: 943556246}
   restartButton: {fileID: 855414946}
   enemies: []
@@ -15186,6 +15190,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HouseXS (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 7307467530688704703, guid: c3b880b0eeddd2e4680483ed86ddcc28, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9e58e2232d67d3943adbba604f5d2477, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18572,10 +18580,10 @@ RectTransform:
   - {fileID: 1203250066}
   m_Father: {fileID: 975673951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &830282740
 PrefabInstance:
@@ -21080,7 +21088,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 700, y: 285.04834}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &916927276
@@ -22985,6 +22993,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HouseXS (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 7307467530688704703, guid: c3b880b0eeddd2e4680483ed86ddcc28, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c9e5ec5df5d23244b8927892842c0e1b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24757,10 +24769,10 @@ RectTransform:
   - {fileID: 1687084022}
   m_Father: {fileID: 975673951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1063972131
 PrefabInstance:
@@ -26081,6 +26093,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HouseXS (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 7307467530688704703, guid: c3b880b0eeddd2e4680483ed86ddcc28, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9e58e2232d67d3943adbba604f5d2477, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28940,7 +28956,7 @@ RectTransform:
   m_Father: {fileID: 1021314163}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -30613,7 +30629,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1354439480
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30989,8 +31005,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1812329400}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -31493,11 +31509,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 324981156790887374, guid: d6053f1299c9a734ca1ce9e22eb3c121, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 38.100037
+      value: 55.2
       objectReference: {fileID: 0}
     - target: {fileID: 324981156790887374, guid: d6053f1299c9a734ca1ce9e22eb3c121, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 123.12415
+      value: 162.7
       objectReference: {fileID: 0}
     - target: {fileID: 324981156790887374, guid: d6053f1299c9a734ca1ce9e22eb3c121, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -31509,6 +31525,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 324981156790887374, guid: d6053f1299c9a734ca1ce9e22eb3c121, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149108739588914477, guid: d6053f1299c9a734ca1ce9e22eb3c121, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -1993404316859754740, guid: 109ac8406362de24cb47e5dc1b712e69, type: 2}
+    - target: {fileID: 5149108739588914477, guid: d6053f1299c9a734ca1ce9e22eb3c121, type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7869862827670466086, guid: d6053f1299c9a734ca1ce9e22eb3c121, type: 3}
@@ -34254,6 +34278,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HouseXS (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7307467530688704703, guid: c3b880b0eeddd2e4680483ed86ddcc28, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5cbd57b1a2ad75d42bf4e5a8f54efc6e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -34553,6 +34581,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HouseXS (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 7307467530688704703, guid: c3b880b0eeddd2e4680483ed86ddcc28, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bb7f70997d222f44291f5ac405cb15ba, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37473,10 +37505,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1063506868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 19.326134}
-  m_SizeDelta: {x: 0, y: 50}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1687084023
 MonoBehaviour:
@@ -41557,7 +41589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1894225615
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42055,7 +42087,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -237.8, y: 81.62414}
+  m_AnchoredPosition: {x: -237.8, y: 118.5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1920314308
@@ -43263,6 +43295,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HouseXS (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 7307467530688704703, guid: c3b880b0eeddd2e4680483ed86ddcc28, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9e58e2232d67d3943adbba604f5d2477, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -47575,6 +47611,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1161721536}
     - target: {fileID: 3394423197718903174, guid: 34f5c40ac76fdb94f9d79597f96b4e5c, type: 3}
+      propertyPath: jumpHeight
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3394423197718903174, guid: 34f5c40ac76fdb94f9d79597f96b4e5c, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1519628226}
@@ -47798,7 +47838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7518837408800400740, guid: 538db1237e335ae48a4111acc037d2b9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 104.82417
+      value: 155
       objectReference: {fileID: 0}
     - target: {fileID: 7518837408800400740, guid: 538db1237e335ae48a4111acc037d2b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
