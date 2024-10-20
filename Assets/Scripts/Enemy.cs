@@ -31,7 +31,6 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
 
-        gameObject.GetComponent<Outline>().enabled = false;
     
 
 

@@ -23,6 +23,10 @@ public class FirstPersonController : MonoBehaviour
     private SpawnManager spawnManager;
     private Enemy enemy;
 
+    public AudioClip jumpSound; 
+    public AudioSource audioSource;
+    
+
 
     void Start()
     {
@@ -30,6 +34,7 @@ public class FirstPersonController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         playerCamera = Camera.main;
         spawnManager = FindObjectOfType<SpawnManager>();
+         audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -67,6 +72,7 @@ public class FirstPersonController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            PlayJumpSound();
         }
 
         // Apply gravity to the player
@@ -138,6 +144,15 @@ void OnTriggerEnter(Collider other)
         }
     }
 }
+
+ void PlayJumpSound()
+    {
+        if (audioSource != null && jumpSound != null)
+        {
+            audioSource.PlayOneShot(jumpSound); // Plays the jump sound once
+        }
+    }
+
     private void DestroyPlayer()
     {
         Time.timeScale = 0;

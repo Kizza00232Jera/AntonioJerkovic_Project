@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class Powerup : MonoBehaviour
 {
     public SpawnManager spawnManager;
+   
    
  
  private void Start()
     {
         gameObject.GetComponent<Outline>().enabled = true;
         spawnManager = FindObjectOfType<SpawnManager>();
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -26,7 +29,8 @@ public class Powerup : MonoBehaviour
           
     }
 
-  
+
+
 
    
 }
