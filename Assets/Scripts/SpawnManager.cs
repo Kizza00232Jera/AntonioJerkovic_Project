@@ -36,7 +36,7 @@ public GameObject completedGameScreen;
     public List<Enemy> enemies = new List<Enemy>();
 
 
-    private float powerupDuration = 10f; // Duration of powerup
+    private float powerupDuration = 13f; // Duration of powerup
     public bool isPowerupActive = false;
 
     public float bossEnemySpeed;
@@ -192,10 +192,12 @@ public GameObject completedGameScreen;
 
         while (timeRemaining > 0)
         {
-            timerText.text = "Time Remaining " + Mathf.Ceil(timeRemaining).ToString(); // Show whole seconds
+            timerText.text = "Chase " + Mathf.Ceil(timeRemaining).ToString(); // Show whole seconds
             timeRemaining -= Time.deltaTime;
             yield return null; // Wait for the next frame
         }
+
+            
 
         // Powerup duration is over
         isPowerupActive = false;
@@ -249,7 +251,7 @@ public GameObject completedGameScreen;
 
         coinText.text = "Coins " + currentCoinCount + "/" + coinsNeededForPowerup;
         killCountText.text = "Enemies Killed " + enemiesKilled;
-        timerText.text = "Be careful";
+        timerText.text = "Run!";
 
         restartButton.onClick.AddListener(RestartGame);
         completedRestartButton.onClick.AddListener(RestartGame);
