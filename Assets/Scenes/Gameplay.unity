@@ -14350,9 +14350,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b57b15ad0cc8c42aa420bc75ecd98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnEnemy: 7
-  enemySpeed: 5.2
-  selectedBossSpeed: 5.2
+  spawnEnemy: 8
+  enemySpeed: 5.25
+  selectedBossSpeed: 5.35
 --- !u!114 &617368006
 MonoBehaviour:
   m_ObjectHideFlags: 0
