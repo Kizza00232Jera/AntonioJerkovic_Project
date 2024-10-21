@@ -30,12 +30,13 @@ public GameObject completedGameScreen;
 
     public TextMeshProUGUI gameOverText;
     public Button restartButton;
+    public Button completedRestartButton;
 
 
     public List<Enemy> enemies = new List<Enemy>();
 
 
-    private float powerupDuration = 15f; // Duration of powerup
+    private float powerupDuration = 10f; // Duration of powerup
     public bool isPowerupActive = false;
 
     public float bossEnemySpeed;
@@ -251,6 +252,7 @@ public GameObject completedGameScreen;
         timerText.text = "Be careful";
 
         restartButton.onClick.AddListener(RestartGame);
+        completedRestartButton.onClick.AddListener(RestartGame);
         titleScreen.gameObject.SetActive(false);
 
 
@@ -272,13 +274,14 @@ public GameObject completedGameScreen;
     public void CompleteGame()
 {
     // Activate the Completed game screen
-    if (completedGameScreen != null)
-    {
+    
         completedGameScreen.SetActive(true);
+        playScreen.gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
 
         // Optionally stop time or freeze the game
         Time.timeScale = 0;
-    }
+    
 }
 
     public void EnemyKilled()
@@ -308,4 +311,5 @@ public GameObject completedGameScreen;
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
 }
